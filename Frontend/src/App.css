@@ -1,0 +1,191 @@
+
+:root{
+    --primary-color: rgb(99, 53, 53);
+    --link-color:black;
+    --link-hover:rgb(229, 202, 202);
+    --text-primary:rgb(229, 187, 187);
+  }
+.my-primary{
+    background-color: var(--primary-color);
+}
+.my-text{
+    color:var(--text-primary)
+}
+
+/* .navbar .active{
+    color: white;
+    font-size: 20px;
+    transition: .7s;
+    font-weight: 800;
+} */
+.footer .footer-link a{
+    color:var(--link-color);
+    display: block;
+    transition: 0.7s;
+    text-decoration: none;
+}
+.footer .footer-link a:hover{
+    color:var(--link-hover);
+    transform: scale(105%);
+    transition: 0.7s;
+}
+.footer .my-text-Footer{
+    color:var(--text-primary);
+    transition: .6s;
+    text-decoration: none;
+}
+.footer .my-text{
+    color:var(--text-primary);
+    font-weight: 700;
+}
+.footer .my-text-Footer:hover{
+    color:white;
+    transition: .6s;
+}
+.footer .custom-footer{
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    transition: .7s;
+
+}
+.footer .custom-footer:hover{
+   background-color: var(--text-primary);
+    color: var(--primary-color);
+    transition: .7s;
+}
+
+.footer h2{
+    color:white;
+    margin:30px 0px;
+}
+.footer p {
+    color:black
+}
+
+#carouselExampleDark #corserButton{
+    background-color: black;
+    height: 40px;
+    transition: .7s;
+    opacity: .3;
+}
+#carouselExampleDark #corserButton:hover{
+    opacity: 1;
+    transition: .7s;
+}
+
+.service-item{
+    background-color: lightgoldenrodyellow;
+    padding: 10px;
+    border-radius: 9px;
+}
+
+.blog a{
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: .6s;
+}
+.blog a:hover{
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: .6s;
+
+}
+
+.blog-item{
+    border-radius: 8px;
+    background-color:rgb(203, 200, 200);
+}
+.blog-text{
+    padding: 23px;
+}
+.team .team-text{
+    position: relative;
+    top: -70px;
+    background-color: white;
+    margin: 0px 16px;
+    padding:8px;
+    text-align: center;
+}
+.team .team-text h2{
+    color:var(--text-primary);
+}
+
+.contact .container{
+    width: auto;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+.contact .contact-img img{
+    height:90vh;
+    width: 100%;
+    object-fit: cover;
+}
+
+.contact .contact-form{
+    width: 90%;
+    padding: 30px;
+    position: absolute;
+    bottom:0;
+    
+    border-radius: 9px 9px 0px 0px;
+
+}
+.contact .contact-form input{
+    margin-top:10px;
+}
+.contact .contact-form .btn-custom{
+    border: 1px solid var(--text-primary);
+    transition: .8s;
+}
+.contact .contact-form .btn-custom:hover{
+    background-color: var(--primary-color);
+    transition: .8s;
+    color:white;
+}
+.navbar .nav-link{
+    transition: .5s;
+}
+.navbar .a1{
+    color: white;
+    font-size: 18px;
+    transition: .7s;
+    font-weight: 800;
+}
+
+
+
+
+.contactSingle  .custom,
+.login  .custom ,
+.register  .custom {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    transition: .7s;
+}
+.contactSingle  .custom:hover,
+.login  .custom:hover , 
+.register  .custom:hover{
+    background-color:var(--primary-color);
+    transition: .7s;
+    color: white;
+}
+.login .userLink ,
+.register .userLink{
+    color:var(--primary-color);
+    transition: .7s;
+    font-size: 20px;
+}
+.login .userLink:hover ,
+.register .userLink:hover{
+    color:var(--text-primary);
+    transition: .7s;
+    font-size: 24px;
+}
+
+.slideshowmake p{
+   font-size: 12px;
+}
+
+
