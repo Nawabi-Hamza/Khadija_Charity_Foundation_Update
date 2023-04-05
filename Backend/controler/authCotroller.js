@@ -37,7 +37,7 @@ const login = (req,res)=>{
         if(data.length === 0) return res.status(404).json({error:"User Is Not Registered Please first Register..."})
 
         const isPasswordCorrect = bcrypt.compareSync(req.body.user_password,data[0].user_password)
-
+        // console.log(isPasswordCorrect)
         if(!isPasswordCorrect) return res.status(400).json({error:"please type correct password"})
 
         const token = jwt.sign({id:data[0].id},"jwtkey123")
@@ -72,10 +72,11 @@ const users = (req,res)=>{
 // find Single User
 const Singleuser = (req,res)=>{
     const q = "SELECT * FROM users WHERE user_id = ? "
+   
     // const value = [req.body.name,req.body.email]
     db.query(q,[req.params.id],(error,data)=>{
         if(error) return res.status(500).json(error)
-        if(data.length) return res.status(200).json(data)          
+        if(data.length) return res.status(200).json(data)
         if(!data.length) return res.status(404).json({message:"User Is Not Registerd"})
     })
 }
@@ -102,11 +103,11 @@ const singleToPostDelete = (req,res)=>{
 }
 // update user
 const UpdateUser = (req,res)=>{
-    q = "UPDATE `users` SET `user_name`=?,`user_email`=?,`user_password`=?,`user_type`=? ,`user_image`=? WHERE `users`.`user_id` = ?"
+    q = "UPDATE `users` SET `user_name`=?,`user_email`=?,`user_password`=?,`user_type`=?  WHERE `users`.`user_id` = ?"
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(req.body.user_password,salt)
     const id = req.params.id
-    const value = [req.body.user_name,req.body.user_email,hash,req.body.user_type,req.body.user_image]
+    const value = [req.body.user_name,req.body.user_email,hash,req.body.user_type]
     db.query(q,[ ...value,id ],(error,data)=>{
         if(error) return res.status(500).json("user is not in system")
         return res.json(data)

@@ -29,9 +29,9 @@ export default function UserProfile(){
         const upload = async()=>{
             try{
             const formData = new FormData();
-            formData.append("file",file)
-            const res = await axios.post("http://localhost:5000/upload",formData)
-            return res.data;
+            formData.append("image",file)
+            const res = await axios.post("http://localhost:5000/image/upload",formData)
+            return res.data.secure_url;
             }catch(error){
             console.log(error)
             }
@@ -39,11 +39,19 @@ export default function UserProfile(){
         const handleUpdateImage = async(e)=>{
             e.preventDefault()
             try{
+                document.getElementById("alertUpdate").innerHTML= "Please Wait...";
+                document.getElementById("alertUpdate").style= "display:block;";
+
                 const imgUrl = await upload()
                 await axios.patch(`http://localhost:5000/auth/users/picture/${currentUser.user_id}`,{
                     user_image:file? imgUrl:""
                 })
-                alert("Image Updated...")
+                // alert("Image Updated...")
+                document.getElementById("alertUpdate").innerHTML= "Your Image Updated Successfuly...";
+                setTimeout(()=>{
+                    document.getElementById("alertUpdate").innerHTML= "";
+                    document.getElementById("alertUpdate").style= "display:block;";
+                },3000)
                 setChangeImage(!changeImage)
                 navigate("/profile")
             }catch(error){
@@ -56,11 +64,12 @@ export default function UserProfile(){
     <div className="container-md">
             {show.map((items)=>( 
         <div className="row py-4 my-md-5 ">
+            <div  id="alertUpdate" className="alert alert-success" style={{display:'none'}}></div>
             <div className="col-md-6 my-2 d-flex justify-content-center align-items-center">
-                {items.user_image===null?
+                {items.user_image===""?
                 <div style={{fontSize:"160px"}} alt="profile" ><i class="fa-solid fa-user"></i></div>
                 :
-                <img src={`../upload/${items.user_image}`} style={{width:"90%",height:"350px",objectFit:"cover"}} alt="profile" />
+                <img src={`${items.user_image}`} style={{width:"90%",height:"350px",objectFit:"cover"}} alt="profile" />
                 }
                <button className="btn">
                 <i class="fa-solid fa-pen-to-square ms-3" onClick={handleEditeImage}></i>

@@ -14,9 +14,9 @@ var contactMail = nodemailer.createTransport({
 });
 contactMail.verify((error)=>{
     if(error){
-        console.log(error)
+        console.table(error)
     }else{
-       console.log({message:"Connected To Mail..."})
+       console.table({message:"Connected To Mail..."})
     }
 })
 routes.post("/",(req,res)=>{
@@ -27,7 +27,7 @@ var emailto = "H.Nawabi007@gmail.com"
     const mail = {
         from:"KhadijaCharityFoundation@gmail.com",
         to:emailto,
-        subject:"This Is From Khadija Charity Foundation Email",
+        subject:"Khadija Charity Foundation Website",
         html:`
        <h3>Name: <b>${name}</b></h3>
        <h3>Email: <b>${email}</b></h3>

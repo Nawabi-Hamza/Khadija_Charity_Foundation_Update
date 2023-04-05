@@ -46,12 +46,24 @@ function CreateNewUser(){
                     await axios.patch(`http://localhost:5000/auth/users/admin/${admin.user_id}`,{
                     user_type:"Admin"
                     })
-                    alert("User Become Admin...")
+                    document.getElementById("showDelete").innerHTML= "User Become Admin...";
+                    document.getElementById("showDelete").style= "display:block";
+                    setTimeout(()=>{
+                    document.getElementById("showDelete").innerHTML= "";
+                    document.getElementById("showDelete").style= "display:none";
+                    },3000)
+                    // alert("User Become Admin...")
                 }else if(admin.user_type==="Admin"){
                     await axios.patch(`http://localhost:5000/auth/users/admin/${admin.user_id}`,{
                     user_type:"User"
                     })
-                    alert("User Become Simple...")
+                    document.getElementById("showDelete").innerHTML= "User Become Standard...";
+                    document.getElementById("showDelete").style= "display:block";
+                    setTimeout(()=>{
+                    document.getElementById("showDelete").innerHTML= "";
+                    document.getElementById("showDelete").style= "display:none";
+                    },3000)
+                    // alert("User Become Simple...")
                 }else{
                     alert("You Con Not Change This User...")
                 }
@@ -64,7 +76,15 @@ function CreateNewUser(){
         // alert("Delete User "+userId)
         try{
             await axios.delete(`http://localhost:5000/auth/users/delete/${userId}`)
-            alert("User Deleted Successfuly...")
+            // alert("User Deleted Successfuly...")
+            document.getElementById("showDelete").innerHTML= "User Deleted Successfuly...";
+            document.getElementById("showDelete").style= "display:block";
+            setTimeout(()=>{
+            document.getElementById("showDelete").innerHTML= "";
+            document.getElementById("showDelete").style= "display:none";
+            },4000)
+
+
         }catch(error){
             console.log(error)
         }
@@ -74,6 +94,7 @@ function CreateNewUser(){
     <div className="container-fluid">
     <div className="container-md">
         <div className="row mt-5 table-responsive">
+            <span className="alert alert-success" style={{display:"none"}} id="showDelete"></span>
         <table className="table table-danger table-hover">
             <thead>
                 <tr>
@@ -89,9 +110,9 @@ function CreateNewUser(){
                 {user.map((items)=>(
                 <tr>
                     <td className="p-3">{items.user_id}</td>
-                    <td  style={{width:"100px",height:"40px"}}>{items.user_image===null ? 
-                        <div className="btn d-flex justify-content-center align-items-center" style={{fontSize:"20px"}}></div>
-                        :<img src={"../upload/"+items.user_image} style={{width:"100%",height:"40px",objectFit:"cover"}} alt="HaveImage" />
+                    <td  style={{width:"100px",height:"40px"}}>{items.user_image==="" ? 
+                        <div className="btn d-flex justify-content-center align-items-center" style={{fontSize:"20px"}}><i class="fa-solid fa-user"></i></div>
+                        :<img src={items.user_image} style={{width:"100%",height:"40px",objectFit:"cover"}} alt="NotImage" />
                         }</td>
                     <td>{items.user_name}</td>
                     <td>{items.user_email}</td>

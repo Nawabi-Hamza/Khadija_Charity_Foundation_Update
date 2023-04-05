@@ -31,23 +31,29 @@ function Show(){
     const [ phone,setPhone ] = useState("")
     const [ address,setAddress ] = useState("")
     const [ description,setDescription ] = useState("")
-    const upload = async(e)=>{
+    const upload = async()=>{
         try{
         const formData = new FormData();
-        formData.append("file",file)
-        const res = await axios.post("http://localhost:5000/upload",formData)
-        return res.data;
+        formData.append("image",file)
+        const res = await axios.post("http://localhost:5000/image/upload",formData)
+        return res.data.secure_url;
+        // const res = await axios.post("http://localhost:5000/image/upload")
+        // return res.url;
         }catch(error){
-        console.log(error)
+        // console.log(error)
         }
     }
+    // console.log(file)
     const hanldInsert = async(e)=>{
         e.preventDefault()
         // setInterval(async() => {
             if(title===""||phone===""||address===""||description===""){
                 alert("Please Fill All Inputs....")
             }else{
+                document.getElementById("show1").innerHTML="Please Wait ..."
+                    document.getElementById("show1").style="display:block;"
                 const imgUrl = await upload()
+                console.log(imgUrl)
                 try{
                     await axios.post("http://localhost:5000/posts",{
                         post_title:title,
@@ -57,8 +63,8 @@ function Show(){
                         post_address:address,
                         post_user:currentUser.user_id
                     })
-                    document.getElementById("show1").innerHTML="Your Post Added Successfuly..."
-                    document.getElementById("show1").style="display:block;"
+                    document.getElementById("show1").innerHTML="Your Post Added Successfuly...";
+                    // document.getElementById("show1").style="display:block;"
                     setTimeout(()=>{
                         setFile(null)
                         setTitle("")
@@ -108,7 +114,7 @@ function Show(){
                     {show.map((items)=>(
                     <div className="row my-2">
                         <div className="col-4">
-                            <img src={`../upload/${items.post_Image}`} style={{width:"100%",height:"100px",objectFit:"cover"}} alt="imagepost" />
+                            <img src={`${items.post_Image}`} style={{width:"100%",height:"100px",objectFit:"cover"}} alt="imagepost" />
                         </div>
                         <div className="col-8">
                             <h4 className="d-flex justify-content-between">{items.post_title} <button className="btn btn-sm btn-danger" onClick={async(e)=>{

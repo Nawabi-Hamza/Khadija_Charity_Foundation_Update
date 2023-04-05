@@ -1,9 +1,11 @@
 
 :root{
-    --primary-color: rgb(99, 53, 53);
+    /* --primary-color: rgb(99, 53, 53); */
+    --primary-color: rgb(53, 99, 86);
     --link-color:black;
     --link-hover:rgb(229, 202, 202);
-    --text-primary:rgb(229, 187, 187);
+    /* --text-primary:rgb(229, 187, 187); */
+    --text-primary:rgb(187, 229, 203);
   }
 .my-primary{
     background-color: var(--primary-color);
@@ -187,5 +189,3 @@
 .slideshowmake p{
    font-size: 12px;
 }
-
-

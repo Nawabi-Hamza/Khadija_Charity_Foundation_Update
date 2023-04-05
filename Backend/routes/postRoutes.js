@@ -2,7 +2,7 @@ const express = require("express")
 const routes = express.Router()
 const { 
         getPost3,getPosts,addPost,deletePosts,
-        AddComment,ShowCommentByPostId,showTotoalOfComment } = require("../controler/postController")
+        AddComment,ShowCommentByPostId,showTotoalOfComment,deleteComment } = require("../controler/postController")
 // routes.get("/",(req,res)=>{
 //     res.send("welcome to test")
 // })
@@ -18,6 +18,7 @@ routes.delete("/:id",deletePosts)
 routes.get("/comment/:id",ShowCommentByPostId)
 routes.post("/comment",AddComment)
 routes.get("/comment/total/:id",showTotoalOfComment)
+routes.delete("/comment/:id",deleteComment)
 
 
 

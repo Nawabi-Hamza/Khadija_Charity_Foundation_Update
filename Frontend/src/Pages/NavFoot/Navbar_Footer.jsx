@@ -31,13 +31,13 @@ function Navbar(){
      <div className="container-lg">
           <nav className="navbar navbar-expand-md navbar-dark">
           <div className="container-fluid">
-            <center> 
+            <center>    
             <div className="navbar-brand">
               <img src="./logo7.png" style={{width:"50px"}} alt="" />
               <h1 style={{fontSize:"10px"}} className="my-text fw-bold  m-0 p-0">Khadija Charity Foundation</h1>
             </div>
             </center>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdownDemo02" aria-controls="navbarNavDropdownDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <button className="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdownDemo02" aria-controls="navbarNavDropdownDemo02" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavDropdownDemo02" >
@@ -57,7 +57,7 @@ function Navbar(){
                   <Link className={url==="about"? "nav-link a1":"nav-link"} aria-current="page" to="/about">About</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={url==="contact"? "nav-link a1":"nav-link"} aria-current="page" to="/contact">Contact</Link>
+                  <Link className={url==="contact"? "nav-link a1":"nav-link"} data-bs-dismiss="collapse" aria-current="page" to="/contact">Contact</Link>
                 </li>
                 {currentUser? 
                 currentUser.user_type==="Admin" || currentUser.user_type==="Super Admin"?
@@ -101,7 +101,7 @@ function Footer(){
                             <h2 className="my-text">Our Office</h2>
                             <p><i className="fa fa-map-marker-alt"></i> 15 District, Kabul , Afghanitan</p>
                             <p><i className="fa fa-phone-alt"></i> 012 345 67890</p>
-                            <p><i className="fa fa-envelope"></i> KhadijaCharityFoundation@gamil.com</p>
+                            <p><i className="fa fa-envelope"></i> KhadijaCharityFoundation@gmail.com</p>
                             <div className="footer-social">
                                 <a className="btn btn-custom" href="/"> <i className="fab fa-twitter"></i></a>
                                 <a className="btn btn-custom" href="/"> <i className="fab fa-facebook-f"></i></a>

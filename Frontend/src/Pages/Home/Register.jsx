@@ -70,7 +70,7 @@ function Register(){
                         <input type="password" className="form-control my-3"  placeholder="Confirm Password" onChange={(e)=>setPassword2(e.target.value)} />
                         <button className="btn custom form-control mb-3" onClick={handleRegisterUser}>Register</button>
                         <span>
-                            <Link to="/login" className="userLink">I have account ? Login</Link>
+                            <Link to="/login" className="userLink">I have account ? Login</Link>    
                         </span>
                     </form>
                 </center>

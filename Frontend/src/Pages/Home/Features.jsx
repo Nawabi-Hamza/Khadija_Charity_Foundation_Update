@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { ContactSection, OurTeam } from "./Home"
+// import { ContactSection, OurTeam } from "./Home"
+import { OurTeam } from "./Home"
 import axios from "axios"
 
 
@@ -8,7 +9,7 @@ export default function FeaturePage(){
     return(<>
         {ShowAllPost()}
         {OurTeam()}
-        {ContactSection()}
+        {/* {ContactSection()} */}
         </>)
 }
 
@@ -37,7 +38,7 @@ function ShowAllPost(){
                     <div className="col-lg-4 my-3">
                         <div className="blog-item bg-white">
                             <div className="blog-img">
-                                <img src={"../upload/"+items.post_Image} style={{width:"100%",height:"250px",borderRadius:"9px 9px 0px 0px",objectFit:'cover'}}  alt="ImageNew" />
+                                <img src={items.post_Image} style={{width:"100%",height:"250px",borderRadius:"9px 9px 0px 0px",objectFit:'cover'}}  alt="ImageNew" />
                             </div>
                             <div className="blog-text">
                                 <h3><Link to={"/people/"+items.post_id} >{items.post_title}</Link></h3>

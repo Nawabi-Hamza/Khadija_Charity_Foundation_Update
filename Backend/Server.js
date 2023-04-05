@@ -7,11 +7,12 @@ app.use(express.json())
 const cookieParser = require("cookie-parser")
 app.use(cookieParser())
 const port = 5000
+// const bodyParser = require("body-parser")
 
 // this is for do not stop the server we use cluster
 const cluster = require("cluster")
 if(cluster.isMaster){
-    for(var i=0; i < 2 ; i++ ){
+    for(var i=0; i < 1 ; i++ ){
         cluster.fork()
     }
     cluster.on("exit",(worker)=>{
@@ -19,7 +20,7 @@ if(cluster.isMaster){
         cluster.fork()
     })
 }else{
-    
+
 app.use(cors())
 
 
@@ -34,6 +35,7 @@ const postRoutes = require("./routes/postRoutes")
 const mail = require("./routes/contactRoutes")
 const slideShow = require("./routes/slideRoutes")
 
+
 // use routes which required
 app.use("/auth",authRoutes)
 app.use("/posts",postRoutes)
@@ -41,26 +43,32 @@ app.use("/contactMail",mail)
 app.use("/slideshow",slideShow)
 
 
+
+// use the cloudinary from other folder
+const cloudinary = require("./Cludinary")
+
+app.use("/image",cloudinary)
+
+
+
 // ================Upload Image in Database in different table==================
         // make diskStorage or create storage
-        const storage = multer.diskStorage({ 
-            destination:(req,file,cb)=>{
-                cb(null,"../Frontend/public/upload")
-            },
-            filename:(req,file,cb)=>{
-                cb(null,Date.now()+ file.originalname)
-            }
-        })
-        // upload Image 
-        const upload = multer({storage})
-        // make api for send image from postman or frontend
-        app.post("/upload",upload.single("file"),(req,res)=>{
-            const file = req.file;
-            res.status(200).json(file.filename)
-            console.log("Image Uploaded...")
-        })
-
-
+        // const storage = multer.diskStorage({ 
+        //     destination:(req,file,cb)=>{
+        //         cb(null,"../Frontend/public/upload")
+        //     },
+        //     filename:(req,file,cb)=>{
+        //         cb(null,Date.now()+ file.originalname)
+        //     }
+        // })
+        // // upload Image 
+        // const upload = multer({storage})
+        // // make api for send image from postman or frontend
+        // app.post("/upload",upload.single("file"),(req,res)=>{
+        //     const file = req.file;
+        //     res.status(200).json(file.filename)
+        //     console.log("Image Uploaded...")
+        // })
 
 
 app.listen(port,()=>{

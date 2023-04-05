@@ -17,6 +17,17 @@ export default function ShowSinglePost(){
 }
 
 function SinglePost(){
+
+    const handleDeleteComment = async(idcomment)=>{
+        // e.preventDefault()
+        try{
+            await axios.delete("http://localhost:5000/posts/comment/"+idcomment)
+        }catch(error){
+            console.log(error)
+        }
+        // alert("welcome to this page " + idcomment)
+
+    }
     const { currentUser } = useContext(AuthContext)
     const location = useLocation()
     const postId = location.pathname.split('/')[2]
@@ -32,7 +43,7 @@ function SinglePost(){
         }
         useEffect(()=>{
             takedata()
-            })
+            },[])
        
     // const id_post = parseInt(postId)
     
@@ -46,10 +57,13 @@ function SinglePost(){
     const showCommentPost = async()=>{
         try{
           const res = await axios.get(`http://localhost:5000/posts/comment/${postId}`)
-            
-        const res2 = await axios.get( `http://localhost:5000/posts/comment/total/${postId}`)
-        setCommentTotal(res2.data)
-              setShowComment(res.data)
+          setShowComment(res.data)
+          try{
+              const res2 = await axios.get( `http://localhost:5000/posts/comment/total/${postId}`)
+              setCommentTotal(res2.data)
+            }catch(error){
+                console.log(error)
+            }
             // console.log(res2)
         }catch(error){
             console.log(error)
@@ -57,7 +71,8 @@ function SinglePost(){
     }
     useEffect(()=>{
         showCommentPost()
-    })
+    },[])
+    
 
     return(<>
     <div className="container-md py-5">
@@ -66,7 +81,7 @@ function SinglePost(){
             {show.map((item)=>(
             <div className="row">
                 <div className="col-md-6">
-                        <img src={"../upload/"+item.post_Image} style={{width:"100%",height:"300px",borderRadius:"9px",objectFit:'cover'}}  alt="ImageNew" />
+                        <img src={item.post_Image} style={{width:"100%",height:"300px",borderRadius:"9px",objectFit:'cover'}}  alt="ImageNew" />
                     </div>
                 <div className="col-md-6">
                         <h2>{item.post_title}</h2>
@@ -102,7 +117,7 @@ function SinglePost(){
                     <div className="d-flex justify-content-between">
                     <h5>
                     {items.user_image?
-                    <img src={"../upload/"+items.user_image} style={{height:"55px",width:"55px",objectFit:"cover",borderRadius:"50%"}} alt="" />
+                    <img src={items.user_image} style={{height:"55px",width:"55px",objectFit:"cover",borderRadius:"50%"}} alt="" />
                     :
                     <i className="fa fa-user" ></i> 
                     }
@@ -110,7 +125,7 @@ function SinglePost(){
                        {currentUser?
                        currentUser.user_type==="Super Admin"?
                        <>
-                    {/*   <button className="btn btn-sm btn-danger" style={{height:"30px"}} onClick={handleShowEditeInput}>Edite</button> */}
+                      <button className="btn btn-sm btn-danger" style={{height:"30px"}} onClick={()=>handleDeleteComment(items.comment_id)}>Delete</button>
                        </>
                        :null
                        :null}

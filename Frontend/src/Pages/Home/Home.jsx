@@ -1,14 +1,15 @@
 // import bootstrap from "bootstrap"
 import axios from "axios"
-import { Link } from  "react-router-dom"
+// import { Link } from  "react-router-dom"
 import { useState } from "react"
+import ShowPosts from "./ShowPost"
 
 
 export default function HomePage(){
     return(<>
             {SlideShow()}
             {ServiceWhatWeDo()}
-            {ShowPosts()}
+            <ShowPosts />
             {OurTeam()}
             {ContactSection()}
         </>)
@@ -59,7 +60,7 @@ export function SlideShow(){
             </div>
             {show.map((items)=>(
             <div className="carousel-item" data-bs-interval="2000">
-            <img src={"../upload/"+items.slide_image} style={{height:"80vh",objectFit:'cover'}} className="d-block w-100" alt="..."/>
+            <img src={items.slide_image} style={{height:"80vh",objectFit:'cover'}} className="d-block w-100" alt="..."/>
             <div className="carousel-caption my-primary mb-3" style={{opacity:"0.7"}}>
                 <h1 className="display-2 fw-bold text-white">{items.slide_title}</h1>
                 <p className="h4 text-white">{items.slide_descrption}</p>
@@ -98,13 +99,13 @@ export function  ServiceWhatWeDo(){
                             </div>
                             <div className="service-text">
                                 <h3>Healthy Food</h3>
-                                <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils .</p>
+                                <p>Lorem ipsum dolor git amet elit. Phase nec preti facils .</p>
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-4 my-3 my-2 col-md-6">
                         <div className="service-item bg-light d-flex">
-                        <div className="service-icon p-2" >
+                        <div className="service-icon p-2" > 
                             <i style={{fontSize:"100px"}} className="fa fa-sharp fa-solid fa-droplet my-text"></i>
                             </div>
                             <div className="service-text">
@@ -165,52 +166,6 @@ export function  ServiceWhatWeDo(){
     </>)
 }
 
-export function ShowPosts(){
-    const [show,setShow] = useState([])
-    const fetchDataThree = async()=>{
-        try{
-            const res = await axios.get("http://localhost:5000/posts/single/three")
-            setShow(res.data)
-        }catch(error){
-            console.log(error)
-        }
-    }
-    fetchDataThree()
-    return(<>
-         <div className="blog bg-light py-md-5">
-            <div className="container">
-                <div className="section-header text-center">
-                    <h2 className="my-text display-2 fw-bold mt-3">Our Blog</h2>
-                    <h2 className="mb-5">Latest news & articles directly from our blog</h2>
-                </div>
-                <div className="row">
-                    {show.map((items)=>(
-                    <div className="col-lg-4 my-3">
-                        <div className="blog-item bg-white">
-                            <div className="blog-img">
-                                <img src={"../upload/"+items.post_Image} style={{width:"100%",height:"300px",borderRadius:"9px 9px 0px 0px",objectFit:"cover"}}  alt="ImageNew" />
-                            </div>
-                            <div className="blog-text">
-                            <h3><Link to={"/people/"+items.post_id}>{items.post_title}</Link></h3>
-                                <p style={{height:"80px",overflow:'auto'}}>
-                                   {items.post_description}
-                                </p>
-                            </div>
-                                {/* <Link to={"/people/"+items.post_id}>
-                            <div className="btn-group p-0 form-control">
-                                <button className="btn btn-secondary"><i className="fa fa-user"></i> More...</button>
-                            </div>
-                                </Link> */}
-                        </div>
-                    </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-     
-    </>)
-}
-
 export function OurTeam(){
     return(<>
     <div className="team py-md-5">
@@ -226,7 +181,7 @@ export function OurTeam(){
                                 <img src="https://images.pexels.com/photos/415263/pexels-photo-415263.jpeg?auto=compress&cs=tinysrgb&w=1600" style={{width:"100%",height:"300px",objectFit:"cover"}}  alt="TeamImage"/>
                             </div>
                             <div className="team-text">
-                                <h2>Khadija Olsen</h2>
+                                <h2>Khadija Heiderzada</h2>
                                 <p>CEO & Founder</p>
                             </div>
                         </div>
@@ -234,10 +189,10 @@ export function OurTeam(){
                     <div className="col-lg-3 col-md-6 mb-3">
                         <div className="team-item" >
                             <div className="team-img" >
-                                <img src="Team/20220529_125121-01.jpg" style={{width:"100%",height:"300px",objectFit:"cover"}}  alt="TeamImage"/>
+                                <img src="https://hamza-nawabi.netlify.app/img/profile.jpg" style={{width:"100%",height:"300px",objectFit:"cover"}}  alt="TeamImage"/>
                             </div>
                             <div className="team-text">
-                                <h2>Hamza Nawabi</h2>
+                                <h2 className="">Hamza Nawabi</h2>
                                 <p>Web Developer</p>
                             </div>
                         </div>
@@ -260,7 +215,7 @@ export function OurTeam(){
                             </div>
                             <div className="team-text">
                                 <h2>Anwar JabarKhil</h2>
-                                <p>Staff</p>
+                                <p>Volunteer</p>
                             </div>
                         </div>
                     </div>

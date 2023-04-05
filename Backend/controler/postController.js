@@ -81,12 +81,21 @@ const AddComment = (req,res)=>{
     })
     // res.send("welcome")
 }
+// DELETE FROM `comments` WHERE `comments`.`comment_id` = ?
 
-
-
+const deleteComment = (req,res)=>{
+    // console.log("delete posts")
+    const postId = req.params.id;
+    const q = "DELETE FROM `comments` WHERE `comments`.`comment_id` = ?"
+    db.query(q,postId,(error,data)=>{
+        if(error)   return res.status(500).json(error)
+        return res.status(200).json({message:" Your Post Deleted Successfuly!"})
+    })
+        
+}
 
 module.exports = {
     getPost3, getPosts,deletePosts,addPost
     ,
-    AddComment,ShowCommentByPostId,showTotoalOfComment
+    AddComment,ShowCommentByPostId,showTotoalOfComment,deleteComment
 }
