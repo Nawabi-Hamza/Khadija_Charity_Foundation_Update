@@ -23,7 +23,7 @@ routes.post("/",(req,res)=>{
 const name = req.body.name
 const email = req.body.email
 const message = req.body.message
-var emailto = "H.Nawabi007@gmail.com"
+var emailto = "H.Nawabi007@gmail.com,naimat10nawabi@gmail.com"
     const mail = {
         from:"KhadijaCharityFoundation@gmail.com",
         to:emailto,

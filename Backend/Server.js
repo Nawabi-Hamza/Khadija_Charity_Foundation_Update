@@ -6,7 +6,8 @@ const app = express()
 app.use(express.json())
 const cookieParser = require("cookie-parser")
 app.use(cookieParser())
-const port = 5000
+require('dotenv').config()
+const port = process.env.PORT || 5000
 // const bodyParser = require("body-parser")
 
 // this is for do not stop the server we use cluster
@@ -28,7 +29,7 @@ app.get("/",(req,res)=>{
     res.send({message:"welcome Hamza Nawabi To NodeJS"})
 })
     
-
+// console.log(process.env.PORT)
 // routes require
 const authRoutes = require("./routes/authRoutes")
 const postRoutes = require("./routes/postRoutes")

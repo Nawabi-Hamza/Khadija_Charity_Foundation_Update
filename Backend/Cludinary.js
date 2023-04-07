@@ -2,7 +2,7 @@ const express = require("express")
 const multer = require("multer")
 const cloudinary = require('cloudinary').v2;
 const bodyParser = require("body-parser")
-
+require("dotenv").config()
 
 const router = express.Router()
 
@@ -18,14 +18,18 @@ const uploads = multer({ storage }).array("images",10);
 
 // Configuration My Api keys from cloudinary
 cloudinary.config({
-  cloud_name: "dskt3xxtq",
-  api_key: "162478373181898",
-  api_secret: "BiiLiH0Oo33cwAgp-zwCGNPjrrk"
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
 
+// router.get('/',(req,res)=>{
+//   console.log("lskdflasdjflsdkf")
+// })
 
 // get all from cloudinary
 router.get("/uploads",(req,res)=>{
+  // res.send("HLDSJFlsdfkj")
     cloudinary.api.resources(function(error, result) {
         if (error) {
           res.send(error);
