@@ -1,6 +1,0 @@
-UPDATE `users` SET `user_email` = 'shafi1gmail.com' WHERE `users`.`user_id` = 7;
-
-ALTER TABLE `customers` CHANGE `customer_address` `customer_addres` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
-
-
-ALTER TABLE `customers`DROP `customer_number`;
