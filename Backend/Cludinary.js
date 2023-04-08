@@ -23,9 +23,6 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-// router.get('/',(req,res)=>{
-//   console.log("lskdflasdjflsdkf")
-// })
 
 // get all from cloudinary
 router.get("/uploads",(req,res)=>{

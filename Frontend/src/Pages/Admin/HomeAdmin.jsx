@@ -84,21 +84,22 @@ function FirstSection(){
     }
     fetchSlideShow()
 
-    const deleteSlideshow = async(show)=>{
-        // alert(show)
-        try{
-            await axios.delete(`http://localhost:5000/slideshow/${show}`)
-            alert("Slide Show Deleted")
-        }catch(error){
-            console.log(error)
-        }
-    }
+    // const deleteSlideshow = async(show)=>{
+    //     // alert(show)
+    //     try{
+    //         await axios.delete(`http://localhost:5000/slideshow/${show}`)
+    //         alert("Slide Show Deleted")
+    //     }catch(error){
+    //         console.log(error)
+    //     }
+    // }
     return(<>
      <div className="slideshowmake">
         <div className="container-md">
             <div className="row">
                 <div className="col-md-6">
                     <h1 className="display-5 my-5">Create New Slide Show</h1>
+                    <div id="show" className="alert alert-success" style={{display:"none"}}></div>
                     <div id="alertShow" className="alert alert-success" style={{display:"none"}}></div>
                     <form action="">
                         <input type="file" className="form-control my-3" placeholder="Image" onChange={(e)=>setFile(e.target.files[0])}/>
@@ -114,7 +115,37 @@ function FirstSection(){
                             <img src={`${items.slide_image}`} style={{width:"100%",height:"150px",objectFit:"cover"}} alt="" />
                         </div>
                         <div className="col-7"> 
-                            <button className="btn btn-danger form-control" onClick={()=>deleteSlideshow(items.slide_id)}>Delete This SlideShow</button>
+                            <button className="btn btn-danger form-control" onClick={async(e)=>{
+                                e.preventDefault()
+                                const url = `${items.slide_image}`;
+                                // console.log(url)
+                                const parts = url.split('/');
+                                const lastPart = parts[parts.length - 1].replace('.jpg'||'.png'||".jpeg", '');
+                                // console.log(lastPart)
+                                try{
+                                    document.getElementById("show").innerHTML="Please Wait..."
+                                    document.getElementById("show").style="display:block;"
+                                    const res = await axios.delete(`http://localhost:5000/image/delimage/${lastPart}`)
+                                    console.log(res.status)
+                                    if(res.status===200){
+                                        try{
+                                            await axios.delete(`http://localhost:5000/slideshow/${items.slide_id}`)
+                                            // alert("Your Post Deleted Successfuly...")
+                                            document.getElementById("show").innerHTML="Your Slide Show Deleted Successfuly..."
+                                            // document.getElementById("show").style="display:block;"
+                                            setTimeout(()=>{
+                                            document.getElementById("show").innerHTML=""
+                                            document.getElementById("show").style="display:none;"
+                                            },3000)
+
+                                        }catch(error){
+                                            console.log(error)
+                                        }
+                                    }
+                                }catch(error){
+                                    console.log(error)
+                                }
+                            }}>Delete This SlideShow</button>
                             <h2>{items.slide_title}</h2>
                             <p style={{height:"60px",overflow:'auto'}}>{items.slide_descrption}</p>
                         </div>

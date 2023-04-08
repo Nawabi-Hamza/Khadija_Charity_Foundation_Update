@@ -25,6 +25,7 @@ export default function PostsDashboard(){
     </>)
 }
 function Show(){
+
     const { currentUser } = useContext(AuthContext)
     const [ file,setFile ] = useState("")
     const [ title,setTitle ] = useState("")
@@ -119,15 +120,32 @@ function Show(){
                         <div className="col-8">
                             <h4 className="d-flex justify-content-between">{items.post_title} <button className="btn btn-sm btn-danger" onClick={async(e)=>{
                                 e.preventDefault()
+                                const url = `${items.post_Image}`;
+                                // console.log(url)
+                                const parts = url.split('/');
+                                const lastPart = parts[parts.length - 1].replace('.jpg'||'.png'||".jpeg", '');
+                                console.log(lastPart)
                                 try{
-                                    await axios.delete(`http://localhost:5000/posts/${items.post_id}`)
-                                    // alert("Your Post Deleted Successfuly...")
-                                    document.getElementById("show").innerHTML="Your Post Deleted Successfuly..."
+                                    document.getElementById("show").innerHTML="Please Wait..."
                                     document.getElementById("show").style="display:block;"
-                                    setTimeout(()=>{
-                                    document.getElementById("show").innerHTML=""
-                                    document.getElementById("show").style="display:none;"
-                                    },3000)
+                                    const res = await axios.delete(`http://localhost:5000/image/delimage/${lastPart}`)
+
+                                    // console.log(res.status)
+                                    if(res.status===200){
+                                        try{
+                                            await axios.delete(`http://localhost:5000/posts/${items.post_id}`)
+                                            // alert("Your Post Deleted Successfuly...")
+                                            document.getElementById("show").innerHTML="Your Post Deleted Successfuly..."
+                                            // document.getElementById("show").style="display:block;"
+                                            setTimeout(()=>{
+                                            document.getElementById("show").innerHTML=""
+                                            document.getElementById("show").style="display:none;"
+                                            },3000)
+
+                                        }catch(error){
+                                            console.log(error)
+                                        }
+                                    }
                                 }catch(error){
                                     console.log(error)
                                 }
