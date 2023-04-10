@@ -83,7 +83,7 @@ function SinglePost(){
                 <div className="col-md-6">
                         <img src={item.post_Image} style={{width:"100%",height:"300px",borderRadius:"9px",objectFit:'cover'}}  alt="ImageNew" />
                     </div>
-                <div className="col-md-6">
+                <div className="col-md-6 p-4">
                         <h2>{item.post_title}</h2>
                         <p>
                             {item.post_description}
@@ -111,7 +111,7 @@ function SinglePost(){
                 <button className="btn btn-warning my-2">Update</button>
                 </>
                 :null} */}
-            <div style={{height:"360px",overflow:"auto"}}>
+            <div style={{maxHeight:"360px",overflow:"auto"}}>
                 {showComment.map((items)=>(
                 <div className="my-2 bg-white p-3" style={{borderRadius:"12px"}}>
                     <div className="d-flex justify-content-between">

@@ -181,7 +181,7 @@ export function OurTeam(){
                                 <img src="https://images.pexels.com/photos/415263/pexels-photo-415263.jpeg?auto=compress&cs=tinysrgb&w=1600" style={{width:"100%",height:"300px",objectFit:"cover"}}  alt="TeamImage"/>
                             </div>
                             <div className="team-text">
-                                <h2>Khadija Heiderzada</h2>
+                                <h3>Khadija Heiderzada</h3>
                                 <p>CEO & Founder</p>
                             </div>
                         </div>
@@ -239,7 +239,7 @@ export function ContactSection(){
             document.getElementById("successShow").innerHTML="Please Wait ...";
             document.getElementById("successShow").style="display:block;";
             try{
-                await axios.post("http://localhost:5000/contactMail",{
+                await axios.post("https://myapi.khadijacharityfoundation.com/contactMail",{
                     name:name,
                     email:email,
                     message:message

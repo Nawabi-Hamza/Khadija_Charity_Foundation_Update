@@ -140,7 +140,7 @@ function Footer(){
                         <p>&copy; <b> Khadija Charity Foundation </b>, All Right Reserved.</p>
                     </div>
                     <div className="col-md-6">
-                        <p>Designed By: <a href="https://hamza-nawabi.netlify.app" className="my-text-Footer"> Hamza Nawabi</a></p>
+                        <p>Designed By: <a href="https://hamza-nawabi.netlify.app" target="blank" className="my-text-Footer"> Hamza Nawabi</a></p>
                     </div>
                 </div>
             </div>

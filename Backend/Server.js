@@ -1,6 +1,5 @@
 const db = require("./db")
 const express = require("express")
-const multer = require("multer")
 const cors = require("cors")
 const app = express()
 app.use(express.json())
@@ -27,6 +26,7 @@ app.use(cors())
 
 app.get("/",(req,res)=>{
     res.send({message:"welcome Hamza Nawabi To NodeJS"})
+    res.end()
 })
     
 // console.log(process.env.PORT)
@@ -52,24 +52,6 @@ app.use("/image",cloudinary)
 
 
 
-// ================Upload Image in Database in different table==================
-        // make diskStorage or create storage
-        // const storage = multer.diskStorage({ 
-        //     destination:(req,file,cb)=>{
-        //         cb(null,"../Frontend/public/upload")
-        //     },
-        //     filename:(req,file,cb)=>{
-        //         cb(null,Date.now()+ file.originalname)
-        //     }
-        // })
-        // // upload Image 
-        // const upload = multer({storage})
-        // // make api for send image from postman or frontend
-        // app.post("/upload",upload.single("file"),(req,res)=>{
-        //     const file = req.file;
-        //     res.status(200).json(file.filename)
-        //     console.log("Image Uploaded...")
-        // })
 
 
 app.listen(port,()=>{

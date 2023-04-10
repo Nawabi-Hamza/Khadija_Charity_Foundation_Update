@@ -108,7 +108,7 @@
     padding:8px;
     text-align: center;
 }
-.team .team-text h2{
+.team .team-text h2 , .team .team-text h3{
     color:var(--text-primary);
 }
 
