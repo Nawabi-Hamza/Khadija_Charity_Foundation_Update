@@ -35,7 +35,7 @@ function ShowAllPost(){
                 </div>
                 <div className="row">
                     {show.map((items)=>(
-                    <div className="col-lg-4 my-3">
+                    <div key={items.post_id} className="col-lg-4 my-3">
                         <div className="blog-item bg-white">
                             <div className="blog-img">
                                 <img src={items.post_Image} style={{width:"100%",height:"250px",borderRadius:"9px 9px 0px 0px",objectFit:'cover'}}  alt="ImageNew" />

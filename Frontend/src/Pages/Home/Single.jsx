@@ -79,7 +79,7 @@ function SinglePost(){
         {/* Family Information */}
         <h1 className="my-text my-3 mb-md-5 fw-bold d-flex justify-content-center">This Family Information</h1>
             {show.map((item)=>(
-            <div className="row">
+            <div className="row" key={item.post_id}>
                 <div className="col-md-6">
                         <img src={item.post_Image} style={{width:"100%",height:"300px",borderRadius:"9px",objectFit:'cover'}}  alt="ImageNew" />
                     </div>

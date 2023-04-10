@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2023 at 04:02 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Apr 10, 2023 at 09:15 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comments` (
   `comment_id` int(11) NOT NULL,
-  `comment` text DEFAULT NULL,
+  `comment` text,
   `user_comment` int(11) DEFAULT NULL,
   `post_comment` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -39,9 +40,10 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`comment_id`, `comment`, `user_comment`, `post_comment`) VALUES
-(2, 'good', 1, 2),
-(3, 'this is new comment\n', 6, 3),
-(4, 'salam\n', 6, 2);
+(1, 'adsklf;asdlfk', 1, 17),
+(2, 'jkfhasdkjfasd', 1, 17),
+(3, 'jkfhasdkjfasdxjhskjdfhasd', 1, 17),
+(4, 'asdlkfjalksd', 1, 16);
 
 -- --------------------------------------------------------
 
@@ -51,9 +53,9 @@ INSERT INTO `comments` (`comment_id`, `comment`, `user_comment`, `post_comment`)
 
 CREATE TABLE `posts` (
   `post_id` int(11) NOT NULL,
-  `post_Image` text DEFAULT NULL,
+  `post_Image` text,
   `post_title` varchar(255) DEFAULT NULL,
-  `post_description` text DEFAULT NULL,
+  `post_description` text,
   `post_phone` varchar(20) DEFAULT NULL,
   `post_address` varchar(255) DEFAULT NULL,
   `post_user` int(11) DEFAULT NULL
@@ -64,8 +66,8 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `post_Image`, `post_title`, `post_description`, `post_phone`, `post_address`, `post_user`) VALUES
-(2, '16765575887591674981633885windows-11-gradient-polygon-art-minimalism-hd-wallpaper-preview.jpg', 'First Post', 'Welcome To Our Single Post Welcome To Our Single Post Welcome To Our Single Post Welcome To Our Single Post ', '0987654321', 'Kabul', 1),
-(3, '16766885750681674803105463Green.jpg', 'The Walpaper', 'This is most powerful post', '0987654321', 'Kabul Jan', 1);
+(16, 'https://res.cloudinary.com/dskt3xxtq/image/upload/v1680913722/uploads/zlnqwuvm2vbpvmy4epak.jpg', 'Help', 'Try To Help people it is better to be patient', '0987654321', 'None', 1),
+(17, 'https://res.cloudinary.com/dskt3xxtq/image/upload/v1681108740/uploads/jazx3isubbwhgla9pztk.png', 'Try', 'This is kabul', '0987654321', 'Kabul', 1);
 
 -- --------------------------------------------------------
 
@@ -76,7 +78,7 @@ INSERT INTO `posts` (`post_id`, `post_Image`, `post_title`, `post_description`, 
 CREATE TABLE `slideshow` (
   `slide_id` int(11) NOT NULL,
   `slide_title` varchar(200) DEFAULT NULL,
-  `slide_descrption` text DEFAULT NULL,
+  `slide_descrption` text,
   `slide_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -85,8 +87,7 @@ CREATE TABLE `slideshow` (
 --
 
 INSERT INTO `slideshow` (`slide_id`, `slide_title`, `slide_descrption`, `slide_image`) VALUES
-(1, 'New Slide Show', 'Hello For This Slide Show Hello For This Slide Show Hello For This Slide Show Hello For This Slide Show Hello For This Slide Show Hello For This Slide Show Hello For This Slide Show ', '16765575538171674803105463Green.jpg'),
-(2, 'HHH', 'HOW HOW HOW HOW HOW HOW HOW ', '16766884970431674981633885windows-11-gradient-polygon-art-minimalism-hd-wallpaper-preview.jpg');
+(8, 'Help People', 'Help More People Help More People Help More People Help More People ', 'https://res.cloudinary.com/dskt3xxtq/image/upload/v1680914675/uploads/hhrwr2oxu7ybzkqc9jrq.jpg');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,7 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `user_name` varchar(200) DEFAULT NULL,
   `user_email` varchar(200) DEFAULT NULL,
-  `user_password` text DEFAULT NULL,
+  `user_password` text,
   `user_type` varchar(100) DEFAULT NULL,
   `user_image` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -108,9 +109,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_type`, `user_image`) VALUES
-(1, 'Hamza', 'Hamza.Nawabi119@gmail.com', '$2a$10$owvfLC/PbcxmASNc8XXHfuDADp.y6.iYJWXVSpfe1lCPsqvUNjPPy', 'Super Admin', '16766890936111674879046208profile.jpg'),
-(5, 'wahid', 'wahid@gmail.com', '$2a$10$q.4387fBE1ppHCUFmJYF9.eOT9yMlOEqNjD5w.6StCSuzrVxdb3TC', 'Admin', ''),
-(6, 'sahil', 'sahil@gmail.com', '$2a$10$cY3eixebUXc7vgOacWd5Se7fVgLyWj9ruT2Zjod.Lw5n7EIc1sW/y', 'Admin', '16766891893211674981633885windows-11-gradient-polygon-art-minimalism-hd-wallpaper-preview.jpg');
+(1, 'Hamza', 'Hamza.Nawabi119@gmail.com', '$2a$10$owvfLC/PbcxmASNc8XXHfuDADp.y6.iYJWXVSpfe1lCPsqvUNjPPy', 'Super Admin', 'https://res.cloudinary.com/dskt3xxtq/image/upload/v1680908933/uploads/uzzflevsdgehg5cikiuf.jpg'),
+(5, 'wahid', 'wahid@gmail.com', '$2a$10$q.4387fBE1ppHCUFmJYF9.eOT9yMlOEqNjD5w.6StCSuzrVxdb3TC', 'Admin', 'https://res.cloudinary.com/dskt3xxtq/image/upload/v1680914976/uploads/hxxdwk5sc1fiadxa3g77.jpg'),
+(6, 'sahil', 'sahil@gmail.com', '$2a$10$cY3eixebUXc7vgOacWd5Se7fVgLyWj9ruT2Zjod.Lw5n7EIc1sW/y', 'User', 'https://res.cloudinary.com/dskt3xxtq/image/upload/v1680669621/uploads/ltkwuzpp9ubyicxv7wrj.jpg'),
+(7, 'naimat', 'naimat10nawabi@gmail.com', '$2a$10$uW.RDN4/JgBwwViNh5QNXOq74ZbICz0q1IQ40pSqnuI.vsrMQBFoi', 'Super Admin', '');
 
 --
 -- Indexes for dumped tables
@@ -157,19 +159,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `slideshow`
 --
 ALTER TABLE `slideshow`
-  MODIFY `slide_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `slide_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

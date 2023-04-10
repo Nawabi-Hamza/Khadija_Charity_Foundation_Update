@@ -63,7 +63,7 @@ export default function UserProfile(){
     <>
     <div className="container-md">
             {show.map((items)=>( 
-        <div className="row py-4 my-md-5 ">
+        <div className="row py-4 my-md-5 " key={items.user_id}>
             <div  id="alertUpdate" className="alert alert-success" style={{display:'none'}}></div>
             <div className="col-md-6 my-2 d-flex justify-content-center align-items-center">
                 {items.user_image===""?

@@ -48,7 +48,7 @@ export function SlideShow(){
         </div>
         <div className="carousel-inner">
             <div className="carousel-item active" data-bs-interval="3000">
-            <img src="https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=auto" style={{height:"80vh",objectFit:'cover'}} className="d-block w-100" alt="..."/>
+            <img src="https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=auto" style={{maxHeight:"80vh",minHeight:"60vh",objectFit:'cover'}} className="d-block w-100" alt="..."/>
             <div className="carousel-caption my-primary mb-3" style={{opacity:"0.7"}}>
                 <h1 className="fw-bold text-white">
                     <a href="https://www.paypal.com/donate/?hosted_button_id=AAVQAD3B6QZS6">
@@ -59,8 +59,8 @@ export function SlideShow(){
             </div> 
             </div>
             {show.map((items)=>(
-            <div className="carousel-item" data-bs-interval="2000">
-            <img src={items.slide_image} style={{height:"80vh",objectFit:'cover'}} className="d-block w-100" alt="..."/>
+            <div className="carousel-item" key={items.slide_id} data-bs-interval="2000">
+            <img src={items.slide_image} style={{maxHeight:"80vh",minHeight:"60vh",objectFit:'cover'}} className="d-block w-100" alt="..."/>
             <div className="carousel-caption my-primary mb-3" style={{opacity:"0.7"}}>
                 <h1 className="display-2 fw-bold text-white">{items.slide_title}</h1>
                 <p className="h4 text-white">{items.slide_descrption}</p>

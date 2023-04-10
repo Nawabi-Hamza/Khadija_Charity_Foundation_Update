@@ -74,7 +74,7 @@ export default function UpdateUserProfile(){
         <div className="row py-4 my-md-5">
             <div className="col-md-4"></div>
             <div className="col-md-4">
-                <form action="">
+                <form>
                     <div className="alert alert-danger" style={{display:"none"}}></div>
                     {/* <input type="file" className="form-control my-3" onChange={(e)=>setFile(e.target.files[0])} placeholder="Image" name="" id=""  /> */}
                     <input type="text" value={name} className="form-control my-3" placeholder="Username" onChange={((e)=>setName(e.target.value))} />
