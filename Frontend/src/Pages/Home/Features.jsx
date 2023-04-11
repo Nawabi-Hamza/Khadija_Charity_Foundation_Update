@@ -17,8 +17,8 @@ function ShowAllPost(){
     const [ show,setShow ] = useState([])
     const FetchData = async()=>{
         try{
-            const res = await axios.get("http://localhost:5000/posts")
-        //   const res2 = await axios.get( `http://localhost:5000/posts/comment/total/${postId}`)
+            const res = await axios.get("https://myapi.khadijacharityfoundation.com/posts")
+        //   const res2 = await axios.get( `https://myapi.khadijacharityfoundation.com/posts/comment/total/${postId}`)
         //     setTotalComment(res2.data)
             setShow(res.data)
         }catch(error){

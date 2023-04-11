@@ -19,7 +19,7 @@ export function SlideShow(){
     const [ show,setShow ] = useState([])
     const fetchData = async()=>{
         try{
-            const res = await axios.get("http://localhost:5000/slideshow")
+            const res = await axios.get("https://myapi.khadijacharityfoundation.com/slideshow")
             setShow(res.data)
         }catch(error){
             console.log(error)

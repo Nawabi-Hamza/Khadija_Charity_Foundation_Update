@@ -21,7 +21,7 @@ function SinglePost(){
     const handleDeleteComment = async(idcomment)=>{
         // e.preventDefault()
         try{
-            await axios.delete("http://localhost:5000/posts/comment/"+idcomment)
+            await axios.delete("https://myapi.khadijacharityfoundation.com/posts/comment/"+idcomment)
         }catch(error){
             console.log(error)
         }
@@ -35,7 +35,7 @@ function SinglePost(){
 
     const takedata =  async()=>{
          try{
-              const res = await axios.get("http://localhost:5000/posts/"+postId)
+              const res = await axios.get("https://myapi.khadijacharityfoundation.com/posts/"+postId)
               setShow(res.data)
           }catch(error){
               console.log(error)   
@@ -56,10 +56,10 @@ function SinglePost(){
     // alert(commentTotal)
     const showCommentPost = async()=>{
         try{
-          const res = await axios.get(`http://localhost:5000/posts/comment/${postId}`)
+          const res = await axios.get(`https://myapi.khadijacharityfoundation.com/posts/comment/${postId}`)
           setShowComment(res.data)
           try{
-              const res2 = await axios.get( `http://localhost:5000/posts/comment/total/${postId}`)
+              const res2 = await axios.get( `https://myapi.khadijacharityfoundation.com/posts/comment/total/${postId}`)
               setCommentTotal(res2.data)
             }catch(error){
                 console.log(error)

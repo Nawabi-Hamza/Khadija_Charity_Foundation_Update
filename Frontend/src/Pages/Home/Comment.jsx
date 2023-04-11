@@ -19,8 +19,8 @@ export default function CommentComponent(){
         e.preventDefault()
         try{
             // alert("welcome to comment")
-            // await axios.post(`http://localhost:5000/posts/comment`,setdata) 
-            await axios.post("http://localhost:5000/posts/comment",setdata)
+            // await axios.post(`https://myapi.khadijacharityfoundation.com/posts/comment`,setdata) 
+            await axios.post("https://myapi.khadijacharityfoundation.com/posts/comment",setdata)
             // console.log(res.data)
             document.getElementById("show").style="display:block;";
             setTimeout(()=>{
