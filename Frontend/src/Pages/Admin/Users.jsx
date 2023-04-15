@@ -32,7 +32,7 @@ function CreateNewUser(){
     const [ user,setUser ] = useState([])
     const fetchData = async()=>{
         try{
-            const res = await axios.get("http://localhost:5000/auth/users")
+            const res = await axios.get("https://af-api.khadijacharityfoundation.com//auth/users")
             setUser(res.data)
         }catch(error){
             console.log(error)
@@ -43,7 +43,7 @@ function CreateNewUser(){
     const handleAdmin = async(admin)=>{
             try{
                 if(admin.user_type==="User"){
-                    await axios.patch(`http://localhost:5000/auth/users/admin/${admin.user_id}`,{
+                    await axios.patch(`https://af-api.khadijacharityfoundation.com//auth/users/admin/${admin.user_id}`,{
                     user_type:"Admin"
                     })
                     document.getElementById("showDelete").innerHTML= "User Become Admin...";
@@ -54,7 +54,7 @@ function CreateNewUser(){
                     },3000)
                     // alert("User Become Admin...")
                 }else if(admin.user_type==="Admin"){
-                    await axios.patch(`http://localhost:5000/auth/users/admin/${admin.user_id}`,{
+                    await axios.patch(`https://af-api.khadijacharityfoundation.com//auth/users/admin/${admin.user_id}`,{
                     user_type:"User"
                     })
                     document.getElementById("showDelete").innerHTML= "User Become Standard...";
@@ -75,7 +75,7 @@ function CreateNewUser(){
     const handleDelete = async(userId)=>{ 
         // alert("Delete User "+userId)
         try{
-            await axios.delete(`http://localhost:5000/auth/users/delete/${userId}`)
+            await axios.delete(`https://af-api.khadijacharityfoundation.com//auth/users/delete/${userId}`)
             // alert("User Deleted Successfuly...")
             document.getElementById("showDelete").innerHTML= "User Deleted Successfuly...";
             document.getElementById("showDelete").style= "display:block";

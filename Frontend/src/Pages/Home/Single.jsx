@@ -21,7 +21,7 @@ function SinglePost(){
     const handleDeleteComment = async(idcomment)=>{
         // e.preventDefault()
         try{
-            await axios.delete("https://myapi.khadijacharityfoundation.com/posts/comment/"+idcomment)
+            await axios.delete("https://af-api.khadijacharityfoundation.com//posts/comment/"+idcomment)
         }catch(error){
             console.log(error)
         }
@@ -32,18 +32,20 @@ function SinglePost(){
     const location = useLocation()
     const postId = location.pathname.split('/')[2]
     const [ show,setShow ] = useState([])
-
-    const takedata =  async()=>{
-         try{
-              const res = await axios.get("https://myapi.khadijacharityfoundation.com/posts/"+postId)
-              setShow(res.data)
-          }catch(error){
-              console.log(error)   
-          }
-        }
-        useEffect(()=>{
+    useEffect(()=>{
+        const takedata =  async()=>{
+             try{
+                  const res = await axios.get("https://af-api.khadijacharityfoundation.com//posts/"+postId)
+                  setShow(res.data)
+              }catch(error){
+                  console.log(error)   
+              }
+            }
             takedata()
-            },[])
+    },[])
+        // useEffect(()=>{
+        //     takedata()
+        //     },[])
        
     // const id_post = parseInt(postId)
     
@@ -54,12 +56,13 @@ function SinglePost(){
    
     const [ showComment,setShowComment ] = useState([])
     // alert(commentTotal)
+    useEffect(()=>{
     const showCommentPost = async()=>{
         try{
-          const res = await axios.get(`https://myapi.khadijacharityfoundation.com/posts/comment/${postId}`)
-          setShowComment(res.data)
+          const res = await axios.get(`https://af-api.khadijacharityfoundation.com//posts/comment/${postId}`)
+        setShowComment(res.data)
           try{
-              const res2 = await axios.get( `https://myapi.khadijacharityfoundation.com/posts/comment/total/${postId}`)
+              const res2 = await axios.get( `https://af-api.khadijacharityfoundation.com//posts/comment/total/${postId}`)
               setCommentTotal(res2.data)
             }catch(error){
                 console.log(error)
@@ -69,15 +72,14 @@ function SinglePost(){
             console.log(error)
         }
     }
-    useEffect(()=>{
         showCommentPost()
-    },[])
+    },[handleDeleteComment])
     
 
     return(<>
     <div className="container-md py-5">
         {/* Family Information */}
-        <h1 className="my-text my-3 mb-md-5 fw-bold d-flex justify-content-center">This Family Information</h1>
+        <h1 className="my-text my-3 mb-md-5 fw-bold d-flex justify-content-center">This Post Information</h1>
             {show.map((item)=>(
             <div className="row" key={item.post_id}>
                 <div className="col-md-6">
@@ -104,7 +106,7 @@ function SinglePost(){
             :null
             }
             <div className="col-md-6">
-            <button className="btn btn-outline-secondary mb-3 form-control"><i className="fa fa-comments"></i> {commentTotal.map((item)=>(<>{item.total}</>))} Comments</button>
+            <div className="p-3"><i className="fa fa-comments"></i> {commentTotal.map((item)=>(<>{item.total}</>))} Comments</div>
                 {/* {editeComment? 
                 <>
                 <input  type="text" className="form-control " placeholder="Your Update Comment..."/>

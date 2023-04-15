@@ -6,7 +6,7 @@ export default function ShowPosts(){
     const [show,setShow] = useState([])
     const fetchDataThree = async()=>{
         try{
-            const res = await axios.get("https://myapi.khadijacharityfoundation.com/posts/single/three")
+            const res = await axios.get("https://af-api.khadijacharityfoundation.com//posts/single/three")
             setShow(res.data)
         }catch(error){
             console.log(error)

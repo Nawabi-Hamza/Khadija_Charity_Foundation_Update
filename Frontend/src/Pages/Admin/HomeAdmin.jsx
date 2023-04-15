@@ -37,7 +37,7 @@ function FirstSection(){
         try{
         const formData = new FormData();
         formData.append("image",file)
-        const res = await axios.post("http://localhost:5000/image/upload",formData)
+        const res = await axios.post("https://af-api.khadijacharityfoundation.com//image/upload",formData)
         return res.data.secure_url;
         }catch(error){
         console.log(error)
@@ -52,9 +52,9 @@ function FirstSection(){
        const imgUrl = await upload()
        console.log(imgUrl)
         try{
-            // alert("Welcome to slide show1")
+            // alert("Welcome to slide show1")                 
             
-            await axios.post("http://localhost:5000/slideshow",{
+            await axios.post("https://af-api.khadijacharityfoundation.com//slideshow",{
                 slide_title:title,
                 slide_descrption:description,
                 slide_image:file? imgUrl:"",
@@ -74,7 +74,7 @@ function FirstSection(){
     const [ show,setShow ] = useState([])
     const fetchSlideShow = async()=>{
         try{
-          const res =  await axios.get("http://localhost:5000/slideshow")
+          const res =  await axios.get("https://af-api.khadijacharityfoundation.com//slideshow")
           setShow(res.data)
 
         }catch(error){
@@ -87,7 +87,7 @@ function FirstSection(){
     // const deleteSlideshow = async(show)=>{
     //     // alert(show)
     //     try{
-    //         await axios.delete(`http://localhost:5000/slideshow/${show}`)
+    //         await axios.delete(`https://af-api.khadijacharityfoundation.com//slideshow/${show}`)
     //         alert("Slide Show Deleted")
     //     }catch(error){
     //         console.log(error)
@@ -125,11 +125,11 @@ function FirstSection(){
                                 try{
                                     document.getElementById("show").innerHTML="Please Wait..."
                                     document.getElementById("show").style="display:block;"
-                                    const res = await axios.delete(`http://localhost:5000/image/delimage/${lastPart}`)
+                                    const res = await axios.delete(`https://af-api.khadijacharityfoundation.com//image/delimage/${lastPart}`)
                                     console.log(res.status)
                                     if(res.status===200){
                                         try{
-                                            await axios.delete(`http://localhost:5000/slideshow/${items.slide_id}`)
+                                            await axios.delete(`https://af-api.khadijacharityfoundation.com//slideshow/${items.slide_id}`)
                                             // alert("Your Post Deleted Successfuly...")
                                             document.getElementById("show").innerHTML="Your Slide Show Deleted Successfuly..."
                                             // document.getElementById("show").style="display:block;"

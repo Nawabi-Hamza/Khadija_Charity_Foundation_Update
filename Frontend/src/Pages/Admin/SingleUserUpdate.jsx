@@ -41,7 +41,7 @@ function Update(){
                 alert("Please Fill All Field")
             }else{
                 try{
-                    await axios.patch(`http://localhost:5000/auth/users/${state.user_id}`,{user_name:name,
+                    await axios.patch(`https://af-api.khadijacharityfoundation.com//auth/users/${state.user_id}`,{user_name:name,
                     user_email: email,
                     user_password: password,
                     user_type:type,

@@ -16,10 +16,10 @@ export default function HomePage(){
 }
 
 export function SlideShow(){
-    const [ show,setShow ] = useState([])
+    const [ show,setShow ] = useState([]) 
     const fetchData = async()=>{
         try{
-            const res = await axios.get("https://myapi.khadijacharityfoundation.com/slideshow")
+            const res = await axios.get("https://af-api.khadijacharityfoundation.com//slideshow")
             setShow(res.data)
         }catch(error){
             console.log(error)
@@ -239,7 +239,7 @@ export function ContactSection(){
             document.getElementById("successShow").innerHTML="Please Wait ...";
             document.getElementById("successShow").style="display:block;";
             try{
-                await axios.post("https://myapi.khadijacharityfoundation.com/contactMail",{
+                await axios.post("https://af-api.khadijacharityfoundation.com//contactMail",{
                     name:name,
                     email:email,
                     message:message
