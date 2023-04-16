@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import NotPage from "../PageNotFound"
 import NavbarDashboard from "./Navbar"
+import { apiDomain } from "../../App"
 
 
 
@@ -41,7 +42,7 @@ function Update(){
                 alert("Please Fill All Field")
             }else{
                 try{
-                    await axios.patch(`http://localhost:5000/auth/users/${state.user_id}`,{user_name:name,
+                    await axios.patch(apiDomain+`/auth/users/${state.user_id}`,{user_name:name,
                     user_email: email,
                     user_password: password,
                     user_type:type,

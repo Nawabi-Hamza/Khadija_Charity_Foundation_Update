@@ -1,5 +1,6 @@
 import { createContext,useState,useEffect } from "react"
 import axios from "axios"
+import { apiDomain } from "../../App"
 
 export const AuthContext = createContext()
 
@@ -8,13 +9,13 @@ export const AuthContextProvider = ({children})=>{
     // =======login function=======
     const login = async (inputs)=>{
         // console.log(inputs)
-       const res =  await axios.post("http://localhost:5000/auth/login",inputs)
+       const res =  await axios.post(apiDomain+"/auth/login",inputs)
        setCurrentUser(res.data)
     }
     // ======logout function=======
      const logout = async(inputs)=>{
         // alert("")
-        await axios.post("http://localhost:5000/auth/logout")
+        await axios.post(apiDomain+"/auth/logout")
         setCurrentUser(null)
         alert("You Logout Successfuly")
      }

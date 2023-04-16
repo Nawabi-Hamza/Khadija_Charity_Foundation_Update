@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import { UserNotAdmin } from "./HomeAdmin"
 import NavbarDashboard from "./Navbar"
+import { apiDomain } from "../../App"
 
 
 
@@ -36,9 +37,9 @@ function Show(){
         try{
         const formData = new FormData();
         formData.append("image",file)
-        const res = await axios.post("http://localhost:5000/image/upload",formData)
+        const res = await axios.post(apiDomain+"/image/upload",formData)
         return res.data.secure_url;
-        // const res = await axios.post("http://localhost:5000/image/upload")
+        // const res = await axios.post(apiDomain+"/image/upload")
         // return res.url;
         }catch(error){
         // console.log(error)
@@ -56,7 +57,7 @@ function Show(){
                 const imgUrl = await upload()
                 console.log(imgUrl)
                 try{
-                    await axios.post("http://localhost:5000/posts",{
+                    await axios.post(apiDomain+"/posts",{
                         post_title:title,
                         post_description:description,
                         post_phone:phone,
@@ -87,7 +88,7 @@ function Show(){
     const [ show,setShow ] = useState([])
     const fetchData = async()=>{
         try{
-            const res = await axios.get("http://localhost:5000/posts")
+            const res = await axios.get(apiDomain+"/posts")
             setShow(res.data)
         }catch(error){
             console.log(error)
@@ -131,12 +132,12 @@ function Show(){
                                 try{
                                     document.getElementById("show").innerHTML="Please Wait..."
                                     document.getElementById("show").style="display:block;"
-                                    const res = await axios.delete(`http://localhost:5000/image/delimage/${lastPart}`)
+                                    const res = await axios.delete(apiDomain+`/image/delimage/${lastPart}`)
 
                                     // console.log(res.status)
                                     if(res.status===200){
                                         try{
-                                            await axios.delete(`http://localhost:5000/posts/${items.post_id}`)
+                                            await axios.delete(apiDomain+`/posts/${items.post_id}`)
                                             // alert("Your Post Deleted Successfuly...")
                                             setCount(count + 1)
                                             document.getElementById("show").innerHTML="Your Post Deleted Successfuly..."

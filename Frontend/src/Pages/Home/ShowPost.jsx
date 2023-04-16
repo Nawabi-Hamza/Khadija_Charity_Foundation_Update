@@ -1,12 +1,13 @@
 import { Link } from  "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { apiDomain } from "../../App"
 
 export default function ShowPosts(){
     const [show,setShow] = useState([])
     const fetchDataThree = async()=>{
         try{
-            const res = await axios.get("http://localhost:5000/posts/single/three")
+            const res = await axios.get(apiDomain+"/posts/single/three")
             setShow(res.data)
         }catch(error){
             console.log(error)

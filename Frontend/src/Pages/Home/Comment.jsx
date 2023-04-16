@@ -2,6 +2,7 @@ import { useContext,useState } from "react"
 import { AuthContext } from "../context/AuthContext"
 import { useLocation } from "react-router-dom"
 import axios from "axios"
+import { apiDomain } from "../../App"
 
 
 export default function CommentComponent(){
@@ -19,8 +20,8 @@ export default function CommentComponent(){
         e.preventDefault()
         try{
             // alert("welcome to comment")
-            // await axios.post(`http://localhost:5000/posts/comment`,setdata) 
-            await axios.post("http://localhost:5000/posts/comment",setdata)
+            // await axios.post(apiDomain+`/posts/comment`,setdata) 
+            await axios.post(apiDomain+"/posts/comment",setdata)
             // console.log(res.data)
             document.getElementById("show").style="display:block;";
             setTimeout(()=>{

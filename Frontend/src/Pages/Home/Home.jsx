@@ -4,7 +4,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import ShowPosts from "./ShowPost"
 import "../../App.css"
-
+import { apiDomain } from "../../App"
 export default function HomePage(){
     return(<>
             {SlideShow()}
@@ -19,7 +19,7 @@ export function SlideShow(){
     const [ show,setShow ] = useState([]) 
     const fetchData = async()=>{
         try{
-            const res = await axios.get("http://localhost:5000/slideshow")
+            const res = await axios.get(`${apiDomain}/slideshow`)
             setShow(res.data)
         }catch(error){
             console.log(error)
@@ -241,7 +241,7 @@ export function ContactSection(){
             document.getElementById("successShow").innerHTML="Please Wait ...";
             document.getElementById("successShow").style="display:block;";
             try{
-                await axios.post("http://localhost:5000/contactMail",{
+                await axios.post(`${apiDomain}/contactMail`,{
                     name:name,
                     email:email,
                     message:message

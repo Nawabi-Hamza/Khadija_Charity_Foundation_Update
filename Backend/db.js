@@ -7,6 +7,8 @@ const db = mysql.createConnection({
     database:process.env.DB_DATABASE,
     connectionLimit:1
 })
+
+
 // var db  = mysql.createPool({
 //   connectionLimit : 1,
 //   host            : process.env.DB_HOST,
@@ -26,9 +28,9 @@ const db = mysql.createConnection({
 // });
 
 
-// db.connect((error)=>{
-//     if(error) return console.error("The Error: "+error.message)
-//     console.log("connected to my sql server")
-// })
+db.connect((error)=>{
+    if(error) return console.error("The Error: "+error.message)
+    console.log("connected to my sql server")
+})
 
 module.exports = db

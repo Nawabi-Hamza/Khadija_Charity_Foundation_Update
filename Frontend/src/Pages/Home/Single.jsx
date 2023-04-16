@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 import axios from "axios"
 import { useEffect } from "react"
+import { apiDomain } from "../../App"
 // import CommentComponent from "./Comment"
 
 
@@ -22,7 +23,7 @@ function SinglePost(){
     const handleDeleteComment = async(idcomment)=>{
         // e.preventDefault()
         try{
-            await axios.delete("http://localhost:5000/posts/comment/"+idcomment)
+            await axios.delete(apiDomain+"/posts/comment/"+idcomment)
             setCount(count + 1)
         }catch(error){
             console.log(error)
@@ -34,17 +35,16 @@ function SinglePost(){
     const location = useLocation()
     const postId = location.pathname.split('/')[2]
     const [ show,setShow ] = useState([])
+    useEffect(()=>{
         const takedata =  async()=>{
              try{
-                  const res = await axios.get("http://localhost:5000/posts/"+postId)
+                  const res = await axios.get(apiDomain+"/posts/"+postId)
                   setShow(res.data)
               }catch(error){
                   console.log(error)   
               }
             }
 
-    useEffect(()=>{
-    
             takedata()
     },[])
         // useEffect(()=>{
@@ -62,10 +62,10 @@ function SinglePost(){
     // alert(commentTotal)
     const showCommentPost = async()=>{
         try{
-          const res = await axios.get(`http://localhost:5000/posts/comment/${postId}`)
+          const res = await axios.get(apiDomain+`/posts/comment/${postId}`)
             setShowComment(res.data)
           try{
-              const res2 = await axios.get( `http://localhost:5000/posts/comment/total/${postId}`)
+              const res2 = await axios.get( apiDomain+`/posts/comment/total/${postId}`)
               setCommentTotal(res2.data)
             //   setCount(count + 1)
             }catch(error){
@@ -91,8 +91,8 @@ function SinglePost(){
         e.preventDefault()
         try{
             // alert("welcome to comment")
-            // await axios.post(`http://localhost:5000/posts/comment`,setdata) 
-            await axios.post("http://localhost:5000/posts/comment",setdata)
+            // await axios.post(apiDomain+`/posts/comment`,setdata) 
+            await axios.post(apiDomain+"/posts/comment",setdata)
             setCount(count + 1)
             // console.log(res.data)
             document.getElementById("show").style="display:block;";
