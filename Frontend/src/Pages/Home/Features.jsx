@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 // import { ContactSection, OurTeam } from "./Home"
 import { OurTeam } from "./Home"
@@ -17,15 +17,17 @@ function ShowAllPost(){
     const [ show,setShow ] = useState([])
     const FetchData = async()=>{
         try{
-            const res = await axios.get("https://af-api.khadijacharityfoundation.com//posts")
-        //   const res2 = await axios.get( `https://af-api.khadijacharityfoundation.com//posts/comment/total/${postId}`)
+            const res = await axios.get("http://localhost:5000/posts")
+        //   const res2 = await axios.get( `http://localhost:5000/posts/comment/total/${postId}`)
         //     setTotalComment(res2.data)
             setShow(res.data)
         }catch(error){
             console.log(error)
         }
     }
-    FetchData()
+    useEffect(()=>{
+        FetchData()
+    },[])
    
     return(<>
      <div className="blog bg-light py-5">

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext,useState } from "react"
+import { useContext,useEffect,useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 // import NavFooter from "../NavFoot/Navbar_Footer"
@@ -11,26 +11,28 @@ export default function UserProfile(){
     const [ show,setShow ] = useState([])
     const FetchData = async()=>{
         try{
-            const res = await axios.get(`https://af-api.khadijacharityfoundation.com//auth/users/single/${currentUser.user_id}`)
+            const res = await axios.get(`http://localhost:5000/auth/users/single/${currentUser.user_id}`)
             setShow(res.data)
         }catch(error){
             console.log(error)
         }
     }
-    FetchData()
+    useEffect(()=>{
+        FetchData()
+    },[])
     // alert(show.user_name)
     const [ changeImage,setChangeImage ] = useState(false)
     const handleEditeImage = (e)=>{
         e.preventDefault()
         setChangeImage(!changeImage)
     }
-        const [ file ,setFile ] = useState(null)
+        const [ file ,setFile ] = useState(null)        
 
         const upload = async()=>{
             try{
             const formData = new FormData();
             formData.append("image",file)
-            const res = await axios.post("https://af-api.khadijacharityfoundation.com//image/upload",formData)
+            const res = await axios.post("http://localhost:5000/image/upload",formData)
             return res.data.secure_url;
             }catch(error){
             console.log(error)
@@ -43,7 +45,7 @@ export default function UserProfile(){
                 document.getElementById("alertUpdate").style= "display:block;";
 
                 const imgUrl = await upload()
-                await axios.patch(`https://af-api.khadijacharityfoundation.com//auth/users/picture/${currentUser.user_id}`,{
+                await axios.patch(`http://localhost:5000/auth/users/picture/${currentUser.user_id}`,{
                     user_image:file? imgUrl:""
                 })
                 // alert("Image Updated...")

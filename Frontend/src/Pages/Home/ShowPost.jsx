@@ -1,19 +1,20 @@
 import { Link } from  "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 
 export default function ShowPosts(){
     const [show,setShow] = useState([])
     const fetchDataThree = async()=>{
         try{
-            const res = await axios.get("https://af-api.khadijacharityfoundation.com//posts/single/three")
+            const res = await axios.get("http://localhost:5000/posts/single/three")
             setShow(res.data)
         }catch(error){
             console.log(error)
         }
     }
-    
-        fetchDataThree()
+    useEffect(()=>{
+        fetchDataThree()            
+    },[])
         
     return(<>
          <div className="blog bg-light py-md-5">

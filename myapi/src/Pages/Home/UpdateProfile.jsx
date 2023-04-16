@@ -24,7 +24,7 @@ export default function UpdateUserProfile(){
     //     try{
     //     const formData = new FormData();
     //     formData.append("file",file)
-    //     const res = await axios.post("https://af-api.khadijacharityfoundation.com//upload",formData)
+    //     const res = await axios.post("http://localhost:5000/upload",formData)
     //     return res.data;
     //     }catch(error){
     //     console.log(error)
@@ -44,7 +44,7 @@ export default function UpdateUserProfile(){
             if(password===password2){
                 // const imgUrl = await upload()
                 try{
-                    await axios.patch(`https://af-api.khadijacharityfoundation.com//auth/users/${state.user_id}`,{
+                    await axios.patch(`http://localhost:5000/auth/users/${state.user_id}`,{
                         user_name:name,
                         user_email:email,
                         user_password:password,

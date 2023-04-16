@@ -32,7 +32,7 @@ function Register(){
         // if all input fill and the password be same in inputs then user can register
         else if(password1===password2){
             try{
-                await axios.post("https://af-api.khadijacharityfoundation.com//auth/register",{
+                await axios.post("http://localhost:5000/auth/register",{
                     user_name:name,
                     user_email:email,
                     user_type:"User",

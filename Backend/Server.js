@@ -6,7 +6,8 @@ app.use(express.json())
 const cookieParser = require("cookie-parser")
 app.use(cookieParser())
 require('dotenv').config()
-const port = process.env.PORT || 5000
+// const port = process.env.PORT || 5000
+const port = 5000
 // const bodyParser = require("body-parser")
 
 // this is for do not stop the server we use cluster
@@ -34,8 +35,8 @@ app.get("/",(req,res)=>{
 const authRoutes = require("./routes/authRoutes")
 const postRoutes = require("./routes/postRoutes")
 const mail = require("./routes/contactRoutes")
-const slideShow = require("./routes/slideRoutes")
-
+// const slideShow = require("./routes/slideRoutes")
+const slideShow = require('./routes/slideRoutes')
 
 // use routes which required
 app.use("/auth",authRoutes)
@@ -46,7 +47,7 @@ app.use("/slideshow",slideShow)
 
 
 // use the cloudinary from other folder
-const cloudinary = require("./Cludinary")
+const cloudinary = require("./Cludinary.js")
 
 app.use("/image",cloudinary)
 

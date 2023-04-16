@@ -8,13 +8,13 @@ export const AuthContextProvider = ({children})=>{
     // =======login function=======
     const login = async (inputs)=>{
         // console.log(inputs)
-       const res =  await axios.post("https://af-api.khadijacharityfoundation.com//auth/login",inputs)
+       const res =  await axios.post("http://localhost:5000/auth/login",inputs)
        setCurrentUser(res.data)
     }
     // ======logout function=======
      const logout = async(inputs)=>{
         // alert("")
-        await axios.post("https://af-api.khadijacharityfoundation.com//auth/logout")
+        await axios.post("http://localhost:5000/auth/logout")
         setCurrentUser(null)
         alert("You Logout Successfuly")
      }

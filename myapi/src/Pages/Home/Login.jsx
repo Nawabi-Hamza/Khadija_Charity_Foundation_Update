@@ -31,7 +31,7 @@ function Login(){
         e.preventDefault()
             try{
                 // alert("welcome")
-                await axios.post("https://af-api.khadijacharityfoundation.com//auth/login",inputs)
+                await axios.post("http://localhost:5000/auth/login",inputs)
                 await login(inputs)
                 alert(`Welcome ${inputs.user_name}`)
                 navigate('/')

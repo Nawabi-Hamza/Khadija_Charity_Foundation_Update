@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 import axios from "axios"
 import { useEffect } from "react"
-import CommentComponent from "./Comment"
+// import CommentComponent from "./Comment"
 
 
 
@@ -16,12 +16,14 @@ export default function ShowSinglePost(){
     </>)
 }
 
-function SinglePost(){
 
+function SinglePost(){
+    const [ count,setCount ] = useState(0)
     const handleDeleteComment = async(idcomment)=>{
         // e.preventDefault()
         try{
-            await axios.delete("https://af-api.khadijacharityfoundation.com//posts/comment/"+idcomment)
+            await axios.delete("http://localhost:5000/posts/comment/"+idcomment)
+            setCount(count + 1)
         }catch(error){
             console.log(error)
         }
@@ -32,15 +34,17 @@ function SinglePost(){
     const location = useLocation()
     const postId = location.pathname.split('/')[2]
     const [ show,setShow ] = useState([])
-    useEffect(()=>{
         const takedata =  async()=>{
              try{
-                  const res = await axios.get("https://af-api.khadijacharityfoundation.com//posts/"+postId)
+                  const res = await axios.get("http://localhost:5000/posts/"+postId)
                   setShow(res.data)
               }catch(error){
                   console.log(error)   
               }
             }
+
+    useEffect(()=>{
+    
             takedata()
     },[])
         // useEffect(()=>{
@@ -56,14 +60,14 @@ function SinglePost(){
    
     const [ showComment,setShowComment ] = useState([])
     // alert(commentTotal)
-    useEffect(()=>{
     const showCommentPost = async()=>{
         try{
-          const res = await axios.get(`https://af-api.khadijacharityfoundation.com//posts/comment/${postId}`)
-        setShowComment(res.data)
+          const res = await axios.get(`http://localhost:5000/posts/comment/${postId}`)
+            setShowComment(res.data)
           try{
-              const res2 = await axios.get( `https://af-api.khadijacharityfoundation.com//posts/comment/total/${postId}`)
+              const res2 = await axios.get( `http://localhost:5000/posts/comment/total/${postId}`)
               setCommentTotal(res2.data)
+            //   setCount(count + 1)
             }catch(error){
                 console.log(error)
             }
@@ -72,8 +76,37 @@ function SinglePost(){
             console.log(error)
         }
     }
+
+
+    const [ acomment,setComment ] = useState("")
+    // const location = useLocation()
+    // const postId = location.pathname.split('/')[2]
+    const id = parseInt(postId)
+    const setdata = {
+        comment:acomment,
+        user_comment:currentUser?.user_id,
+        post_comment:id
+    }
+    const addComment = async(e)=>{
+        e.preventDefault()
+        try{
+            // alert("welcome to comment")
+            // await axios.post(`http://localhost:5000/posts/comment`,setdata) 
+            await axios.post("http://localhost:5000/posts/comment",setdata)
+            setCount(count + 1)
+            // console.log(res.data)
+            document.getElementById("show").style="display:block;";
+            setTimeout(()=>{
+                document.getElementById("show").style="display:none;";     
+            },3000)
+            // alert("your comment successfuly added")
+        }catch(error){
+            console.log(error)
+        }
+    }
+    useEffect(()=>{
         showCommentPost()
-    },[handleDeleteComment])
+    },[count])
     
 
     return(<>
@@ -101,7 +134,13 @@ function SinglePost(){
         <div className="row">
             {currentUser?
             <div className="col-md-6">
-                <CommentComponent/>
+                {/* <CommentComponent /> */}
+                <form action="" className="footer">
+                    <div className="alert alert-success mb-2" style={{display:"none"}} id="show">Your Comment Successuly Sended thanks for your comment</div>
+                    <h3 className="text-secondary">You Can Comment In This Post</h3>
+                    <textarea className="form-control my-3" placeholder="Your Comment About This Family..." onChange={(e)=>setComment(e.target.value)} rows={6}></textarea>
+                    <button className="form-control btn btn-outline-secondary" onClick={addComment}>Give Comment</button>
+                </form>
             </div>
             :null
             }

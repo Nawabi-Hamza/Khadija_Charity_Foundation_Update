@@ -22,7 +22,7 @@ function Contact(){
             document.getElementById("successShow").innerHTML="Please Wait ...";
             document.getElementById("successShow").style="display:block;";
             try{
-                await axios.post("https://af-api.khadijacharityfoundation.com//contactMail",{
+                await axios.post("http://localhost:5000/contactMail",{
                     name:name,
                     email:email,
                     message:message

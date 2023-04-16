@@ -14,6 +14,18 @@
     color:var(--text-primary)
 }
 
+#my-custom-donation{
+    border: 1px solid var(--text-primary);
+    background-color: var(--text-primary);
+    transition: .7s;
+}
+#my-custom-donation:hover{
+    background-color:var(--primary-color);
+    transition: .7s;
+    color: white;
+}
+
+
 /* .navbar .active{
     color: white;
     font-size: 20px;
@@ -155,7 +167,6 @@
     transition: .7s;
     font-weight: 800;
 }
-
 
 
 

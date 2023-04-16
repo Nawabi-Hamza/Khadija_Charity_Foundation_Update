@@ -1,9 +1,9 @@
 // import bootstrap from "bootstrap"
 import axios from "axios"
 // import { Link } from  "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ShowPosts from "./ShowPost"
-
+import "../../App.css"
 
 export default function HomePage(){
     return(<>
@@ -19,13 +19,15 @@ export function SlideShow(){
     const [ show,setShow ] = useState([]) 
     const fetchData = async()=>{
         try{
-            const res = await axios.get("https://af-api.khadijacharityfoundation.com//slideshow")
+            const res = await axios.get("http://localhost:5000/slideshow")
             setShow(res.data)
         }catch(error){
             console.log(error)
         }
     }
-    fetchData()
+    useEffect(()=>{
+        fetchData()
+    },[])
     // console.log(show.length)
     // var numberArray = 0
     // var numberArrayOne = 1
@@ -52,7 +54,7 @@ export function SlideShow(){
             <div className="carousel-caption my-primary mb-3" style={{opacity:"0.7"}}>
                 <h1 className="fw-bold text-white">
                     <a href="https://www.paypal.com/donate/?hosted_button_id=AAVQAD3B6QZS6">
-                    <button className="btn btn-warning">Donate Now For Poor People</button>
+                    <button className="btn " id="my-custom-donation">Donate Now For Poor People</button>
                     </a>
                     </h1>
                 <p className="h1 fw-bold text-white">Welcome To Khadija Charity Foundation.</p>
@@ -239,7 +241,7 @@ export function ContactSection(){
             document.getElementById("successShow").innerHTML="Please Wait ...";
             document.getElementById("successShow").style="display:block;";
             try{
-                await axios.post("https://af-api.khadijacharityfoundation.com//contactMail",{
+                await axios.post("http://localhost:5000/contactMail",{
                     name:name,
                     email:email,
                     message:message

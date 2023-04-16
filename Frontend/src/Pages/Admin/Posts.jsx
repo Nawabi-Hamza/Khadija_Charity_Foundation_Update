@@ -1,7 +1,7 @@
 
 
 import axios from "axios"
-import { useContext,useState } from "react"
+import { useContext,useEffect,useState } from "react"
 import { AuthContext } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import { UserNotAdmin } from "./HomeAdmin"
@@ -25,7 +25,7 @@ export default function PostsDashboard(){
     </>)
 }
 function Show(){
-
+    const [ count,setCount ] = useState(0)
     const { currentUser } = useContext(AuthContext)
     const [ file,setFile ] = useState("")
     const [ title,setTitle ] = useState("")
@@ -36,9 +36,9 @@ function Show(){
         try{
         const formData = new FormData();
         formData.append("image",file)
-        const res = await axios.post("https://af-api.khadijacharityfoundation.com//image/upload",formData)
+        const res = await axios.post("http://localhost:5000/image/upload",formData)
         return res.data.secure_url;
-        // const res = await axios.post("https://af-api.khadijacharityfoundation.com//image/upload")
+        // const res = await axios.post("http://localhost:5000/image/upload")
         // return res.url;
         }catch(error){
         // console.log(error)
@@ -56,7 +56,7 @@ function Show(){
                 const imgUrl = await upload()
                 console.log(imgUrl)
                 try{
-                    await axios.post("https://af-api.khadijacharityfoundation.com//posts",{
+                    await axios.post("http://localhost:5000/posts",{
                         post_title:title,
                         post_description:description,
                         post_phone:phone,
@@ -64,6 +64,7 @@ function Show(){
                         post_address:address,
                         post_user:currentUser.user_id
                     })
+                    setCount(count + 1)
                     document.getElementById("show1").innerHTML="Your Post Added Successfuly...";
                     // document.getElementById("show1").style="display:block;"
                     setTimeout(()=>{
@@ -86,13 +87,15 @@ function Show(){
     const [ show,setShow ] = useState([])
     const fetchData = async()=>{
         try{
-            const res = await axios.get("https://af-api.khadijacharityfoundation.com//posts")
+            const res = await axios.get("http://localhost:5000/posts")
             setShow(res.data)
         }catch(error){
             console.log(error)
         }
     }
-    fetchData()
+    useEffect(()=>{
+        fetchData()          
+    },[count])
     return(<>
     <div className="contianer-fluid">
         <div className="container-md">
@@ -128,13 +131,14 @@ function Show(){
                                 try{
                                     document.getElementById("show").innerHTML="Please Wait..."
                                     document.getElementById("show").style="display:block;"
-                                    const res = await axios.delete(`https://af-api.khadijacharityfoundation.com//image/delimage/${lastPart}`)
+                                    const res = await axios.delete(`http://localhost:5000/image/delimage/${lastPart}`)
 
                                     // console.log(res.status)
                                     if(res.status===200){
                                         try{
-                                            await axios.delete(`https://af-api.khadijacharityfoundation.com//posts/${items.post_id}`)
+                                            await axios.delete(`http://localhost:5000/posts/${items.post_id}`)
                                             // alert("Your Post Deleted Successfuly...")
+                                            setCount(count + 1)
                                             document.getElementById("show").innerHTML="Your Post Deleted Successfuly..."
                                             // document.getElementById("show").style="display:block;"
                                             setTimeout(()=>{
