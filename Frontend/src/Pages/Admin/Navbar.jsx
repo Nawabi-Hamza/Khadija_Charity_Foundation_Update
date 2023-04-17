@@ -29,7 +29,7 @@ export default function NavbarDashboard(){
                   <Link className={url===""? "nav-link a1":"nav-link"} aria-current="page" to="/">&lt;| Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={url==="home"? "nav-link a1":"nav-link"} aria-current="page" to="/dashboard/home">SlideShow</Link>
+                  <Link className={`nav-link ${url==="home" && 'a1'}`} aria-current="page" to="/dashboard/home">SlideShow</Link>
                 </li>
                 <li className="nav-item">
                   <Link className={url==="posts"? "nav-link a1":"nav-link"} aria-current="page" to="/dashboard/posts">Posts</Link>

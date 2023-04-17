@@ -23,25 +23,29 @@ routes.post("/",(req,res)=>{
 const name = req.body.name
 const email = req.body.email
 const message = req.body.message
-var emailto = "H.Nawabi007@gmail.com,naimat10nawabi@gmail.com"
-    const mail = {
-        from:"KhadijaCharityFoundation@gmail.com",
-        to:emailto,
-        subject:"Khadija Charity Foundation Website",
-        html:`
-       <h3>Name: <b>${name}</b></h3>
-       <h3>Email: <b>${email}</b></h3>
-        Message: <p>${message}</p><br/>
-        `
+if(name && email && message){
+    var emailto = "H.Nawabi007@gmail.com,naimat10nawabi@gmail.com"
+        const mail = {
+            from:"KhadijaCharityFoundation@gmail.com",
+            to:emailto,
+            subject:"Khadija Charity Foundation Website",
+            html:`
+           <h3>Name: <b>${name}</b></h3>
+           <h3>Email: <b>${email}</b></h3>
+            Message: <p>${message}</p><br/>
+            `
+        }
+    contactMail.sendMail(mail,(error)=>{
+    if(error){
+        // res.status(500).json({Error:"Please Check Your Internet..."})
+        res.json({Error:"Please Check Your Internet..."})
+    }else{
+        res.json({message:"We Recieved Your Message"})
     }
-contactMail.sendMail(mail,(error)=>{
-if(error){
-    // res.status(500).json({Error:"Please Check Your Internet..."})
-    console.log({Error:"Please Check Your Internet..."})
+    }); 
 }else{
-    res.json({message:"We Recieved Your Message"})
-}
-}); 
+    res.status(400).json({message:"please fill all field"})
+ }
 })
 
 module.exports = routes

@@ -12,7 +12,7 @@ const { showSlideShow, createSlideShow,deleteSlideShow } = require("../controler
 
 routes.get('/',showSlideShow)
 routes.post("/",createSlideShow)
-routes.delete("/:id",deleteSlideShow)
+routes.post("/delete/:id",deleteSlideShow)
 
 
 module.exports = routes

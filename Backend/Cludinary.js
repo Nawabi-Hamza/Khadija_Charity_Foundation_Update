@@ -74,7 +74,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 
 
 // delete from cloudinary image
-router.delete('/delimage/:id',(req,res)=>{
+router.post('/delimage/:id',(req,res)=>{
     const id = req.params.id
     const publicId = `uploads/${id}`;
     // const publicId = req.params;

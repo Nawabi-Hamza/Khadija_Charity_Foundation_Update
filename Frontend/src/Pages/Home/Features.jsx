@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 // import { ContactSection, OurTeam } from "./Home"
 import { OurTeam } from "./Home"
 import axios from "axios"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 
 export default function FeaturePage(){
@@ -18,8 +18,8 @@ function ShowAllPost(){
     const [ show,setShow ] = useState([])
     const FetchData = async()=>{
         try{
-            const res = await axios.get(apiDomain+"/posts")
-        //   const res2 = await axios.get( apiDomain+`/posts/comment/total/${postId}`)
+            const res = await axios.get("https://myapi.khadijacharityfoundation.com/posts")
+        //   const res2 = await axios.get( `https://myapi.khadijacharityfoundation.com/posts/comment/total/${postId}`)
         //     setTotalComment(res2.data)
             setShow(res.data)
         }catch(error){

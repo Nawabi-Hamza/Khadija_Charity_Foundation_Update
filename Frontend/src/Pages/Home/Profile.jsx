@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 // import NavFooter from "../NavFoot/Navbar_Footer"
 import LoginPage from "./Login"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 export default function UserProfile(){
     const navigate = useNavigate()
@@ -12,7 +12,7 @@ export default function UserProfile(){
     const [ show,setShow ] = useState([])
     const FetchData = async()=>{
         try{
-            const res = await axios.get(apiDomain+`/auth/users/single/${currentUser.user_id}`)
+            const res = await axios.get(`https://myapi.khadijacharityfoundation.com/auth/users/single/${currentUser.user_id}`)
             setShow(res.data)
         }catch(error){
             console.log(error)
@@ -33,7 +33,7 @@ export default function UserProfile(){
             try{
             const formData = new FormData();
             formData.append("image",file)
-            const res = await axios.post(apiDomain+"/image/upload",formData)
+            const res = await axios.post("https://myapi.khadijacharityfoundation.com/image/upload",formData)
             return res.data.secure_url;
             }catch(error){
             console.log(error)
@@ -46,7 +46,7 @@ export default function UserProfile(){
                 document.getElementById("alertUpdate").style= "display:block;";
 
                 const imgUrl = await upload()
-                await axios.patch(apiDomain+`/auth/users/picture/${currentUser.user_id}`,{
+                await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/picture/${currentUser.user_id}`,{
                     user_image:file? imgUrl:""
                 })
                 // alert("Image Updated...")

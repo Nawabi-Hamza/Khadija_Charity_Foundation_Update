@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 import axios from "axios"
 import { useEffect } from "react"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 // import CommentComponent from "./Comment"
 
 
@@ -23,7 +23,7 @@ function SinglePost(){
     const handleDeleteComment = async(idcomment)=>{
         // e.preventDefault()
         try{
-            await axios.delete(apiDomain+"/posts/comment/"+idcomment)
+            await axios.post("https://myapi.khadijacharityfoundation.com/posts/comment/delete/"+idcomment)
             setCount(count + 1)
         }catch(error){
             console.log(error)
@@ -38,7 +38,7 @@ function SinglePost(){
     useEffect(()=>{
         const takedata =  async()=>{
              try{
-                  const res = await axios.get(apiDomain+"/posts/"+postId)
+                  const res = await axios.get("https://myapi.khadijacharityfoundation.com/posts/"+postId)
                   setShow(res.data)
               }catch(error){
                   console.log(error)   
@@ -62,10 +62,10 @@ function SinglePost(){
     // alert(commentTotal)
     const showCommentPost = async()=>{
         try{
-          const res = await axios.get(apiDomain+`/posts/comment/${postId}`)
+          const res = await axios.get(`https://myapi.khadijacharityfoundation.com/posts/comment/${postId}`)
             setShowComment(res.data)
           try{
-              const res2 = await axios.get( apiDomain+`/posts/comment/total/${postId}`)
+              const res2 = await axios.get( `https://myapi.khadijacharityfoundation.com/posts/comment/total/${postId}`)
               setCommentTotal(res2.data)
             //   setCount(count + 1)
             }catch(error){
@@ -91,8 +91,8 @@ function SinglePost(){
         e.preventDefault()
         try{
             // alert("welcome to comment")
-            // await axios.post(apiDomain+`/posts/comment`,setdata) 
-            await axios.post(apiDomain+"/posts/comment",setdata)
+            // await axios.post(`https://myapi.khadijacharityfoundation.com/posts/comment`,setdata) 
+            await axios.post("https://myapi.khadijacharityfoundation.com/posts/comment",setdata)
             setCount(count + 1)
             // console.log(res.data)
             document.getElementById("show").style="display:block;";

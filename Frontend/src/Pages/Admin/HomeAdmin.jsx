@@ -5,7 +5,7 @@ import { useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import NavbarDashboard from "./Navbar"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 
 export default function HomeDashboard(){
@@ -38,7 +38,7 @@ function FirstSection(){
         try{
         const formData = new FormData();
         formData.append("image",file)
-        const res = await axios.post(apiDomain+"/image/upload",formData)
+        const res = await axios.post("https://myapi.khadijacharityfoundation.com/image/upload",formData)
         return res.data.secure_url;
         }catch(error){
         console.log(error)
@@ -56,7 +56,7 @@ function FirstSection(){
         try{
             // alert("Welcome to slide show1")                 
             
-            await axios.post(apiDomain+"/slideshow",{
+            await axios.post("https://myapi.khadijacharityfoundation.com/slideshow",{
                 slide_title:title,
                 slide_descrption:description,
                 slide_image:file? imgUrl:"",
@@ -77,7 +77,7 @@ function FirstSection(){
     const [ show,setShow ] = useState([])
     const fetchSlideShow = async()=>{
         try{
-          const res =  await axios.get(apiDomain+"/slideshow")
+          const res =  await axios.get("https://myapi.khadijacharityfoundation.com/slideshow")
           setShow(res.data)
 
         }catch(error){
@@ -92,7 +92,7 @@ function FirstSection(){
     // const deleteSlideshow = async(show)=>{
     //     // alert(show)
     //     try{
-    //         await axios.delete(apiDomain+`/slideshow/${show}`)
+    //         await axios.delete(`https://myapi.khadijacharityfoundation.com/slideshow/${show}`)
     //         alert("Slide Show Deleted")
     //     }catch(error){
     //         console.log(error)
@@ -122,6 +122,7 @@ function FirstSection(){
                         <div className="col-7"> 
                             <button className="btn btn-danger form-control" onClick={async(e)=>{
                                 e.preventDefault()
+                                // alert("this is delete")
                                 const url = `${items.slide_image}`;
                                 // console.log(url)
                                 const parts = url.split('/');
@@ -130,11 +131,11 @@ function FirstSection(){
                                 try{
                                     document.getElementById("show").innerHTML="Please Wait..."
                                     document.getElementById("show").style="display:block;"
-                                    const res = await axios.delete(apiDomain+`/image/delimage/${lastPart}`)
+                                    const res = await axios.post(`https://myapi.khadijacharityfoundation.com/image/delimage/${lastPart}`)
                                     console.log(res.status)
                                     if(res.status===200){
                                         try{
-                                            await axios.delete(apiDomain+`/slideshow/${items.slide_id}`)
+                                            await axios.post(`https://myapi.khadijacharityfoundation.com/slideshow/delete/${items.slide_id}`)
                                             // alert("Your Post Deleted Successfuly...")
                                             setCreateShow(createShow + 1)
                                             document.getElementById("show").innerHTML="Your Slide Show Deleted Successfuly..."

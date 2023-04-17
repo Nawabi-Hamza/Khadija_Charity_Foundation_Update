@@ -11,14 +11,14 @@ routes.get("/",getPosts)
 routes.get("/:id",getPosts)
 routes.get("/single/three",getPost3)
 routes.post("/",addPost)
-routes.delete("/:id",deletePosts)
+routes.post("/delete/:id",deletePosts)
 
 
 // Comment Methode
 routes.get("/comment/:id",ShowCommentByPostId)
 routes.post("/comment",AddComment)
 routes.get("/comment/total/:id",showTotoalOfComment)
-routes.delete("/comment/:id",deleteComment)
+routes.post("/comment/delete/:id",deleteComment)
 
 
 

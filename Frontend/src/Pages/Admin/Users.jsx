@@ -6,7 +6,7 @@ import NavbarDashboard from "./Navbar"
 import { useState,useContext, useEffect } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 
 export default function UsersDashboard(){
@@ -34,7 +34,7 @@ function CreateNewUser(){
     const [ user,setUser ] = useState([])
     const fetchData = async()=>{
         try{
-            const res = await axios.get(apiDomain+"/auth/users")
+            const res = await axios.get("https://myapi.khadijacharityfoundation.com/auth/users")
             setUser(res.data)
         }catch(error){
             console.log(error)
@@ -47,7 +47,7 @@ function CreateNewUser(){
     const handleAdmin = async(admin)=>{
             try{
                 if(admin.user_type==="User"){
-                    await axios.patch(apiDomain+`/auth/users/admin/${admin.user_id}`,{
+                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/admin/${admin.user_id}`,{
                     user_type:"Admin"
                     })
                     setCount(count + 1)
@@ -59,7 +59,7 @@ function CreateNewUser(){
                     },3000)
                     // alert("User Become Admin...")
                 }else if(admin.user_type==="Admin"){
-                    await axios.patch(apiDomain+`/auth/users/admin/${admin.user_id}`,{
+                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/admin/${admin.user_id}`,{
                     user_type:"User"
                     })
                     setCount(count + 1)
@@ -81,7 +81,7 @@ function CreateNewUser(){
     const handleDelete = async(userId)=>{ 
         // alert("Delete User "+userId)
         try{
-            await axios.delete(apiDomain+`/auth/users/delete/${userId}`)
+            await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/delete/${userId}`)
             // alert("User Deleted Successfuly...")
             setCount(count + 1)
             document.getElementById("showDelete").innerHTML= "User Deleted Successfuly...";

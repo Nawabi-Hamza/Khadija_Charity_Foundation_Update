@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 
 export default function ContactPage(){
@@ -23,7 +23,7 @@ function Contact(){
             document.getElementById("successShow").innerHTML="Please Wait ...";
             document.getElementById("successShow").style="display:block;";
             try{
-                await axios.post(apiDomain+"/contactMail",{
+                await axios.post("https://myapi.khadijacharityfoundation.com/contactMail",{
                     name:name,
                     email:email,
                     message:message

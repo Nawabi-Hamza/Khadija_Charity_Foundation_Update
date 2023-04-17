@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 import LoginPage from "./Login"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 
 
@@ -25,7 +25,7 @@ export default function UpdateUserProfile(){
     //     try{
     //     const formData = new FormData();
     //     formData.append("file",file)
-    //     const res = await axios.post(apiDomain+"/upload",formData)
+    //     const res = await axios.post("https://myapi.khadijacharityfoundation.com/upload",formData)
     //     return res.data;
     //     }catch(error){
     //     console.log(error)
@@ -45,7 +45,7 @@ export default function UpdateUserProfile(){
             if(password===password2){
                 // const imgUrl = await upload()
                 try{
-                    await axios.patch(apiDomain+`/auth/users/${state.user_id}`,{
+                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/${state.user_id}`,{
                         user_name:name,
                         user_email:email,
                         user_password:password,

@@ -16,10 +16,10 @@ router.post("/logout",logout)
 // User Methode
 router.get('/users',users)
 router.get('/users/single/:id',Singleuser)
-router.patch('/users/:id',UpdateUser)
-router.patch('/users/admin/:id',UpdateUserAdmin)
-router.patch('/users/picture/:id',updateUserPicture)
-router.delete("/users/delete/:id",singleToPostDelete)
+router.post('/users/edite/:id',UpdateUser)
+router.post('/users/edite/admin/:id',UpdateUserAdmin)
+router.post('/users/edite/picture/:id',updateUserPicture)
+router.post("/users/delete/:id",singleToPostDelete)
 
 
 

@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import NotPage from "../PageNotFound"
 import NavbarDashboard from "./Navbar"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 
 
@@ -42,7 +42,7 @@ function Update(){
                 alert("Please Fill All Field")
             }else{
                 try{
-                    await axios.patch(apiDomain+`/auth/users/${state.user_id}`,{user_name:name,
+                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/${state.user_id}`,{user_name:name,
                     user_email: email,
                     user_password: password,
                     user_type:type,

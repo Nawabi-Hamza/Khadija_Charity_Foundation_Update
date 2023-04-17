@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 export default function RegisterPage(){
     return(<>
@@ -33,7 +33,7 @@ function Register(){
         // if all input fill and the password be same in inputs then user can register
         else if(password1===password2){
             try{
-                await axios.post(apiDomain+"/auth/register",{
+                await axios.post("https://myapi.khadijacharityfoundation.com/auth/register",{
                     user_name:name,
                     user_email:email,
                     user_type:"User",

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState,useContext } from "react"
 import axios from "axios"
 import { AuthContext } from "../context/AuthContext"
-import { apiDomain } from "../../App"
+// import { apiDomain } from "../../App"
 
 export default function LoginPage(){
     return(<>
@@ -32,7 +32,7 @@ function Login(){
         e.preventDefault()
             try{
                 // alert("welcome")
-                await axios.post(apiDomain+"/auth/login",inputs)
+                await axios.post("https://myapi.khadijacharityfoundation.com/auth/login",inputs)
                 await login(inputs)
                 alert(`Welcome ${inputs.user_name}`)
                 navigate('/')
