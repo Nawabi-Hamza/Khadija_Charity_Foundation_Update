@@ -200,3 +200,36 @@
 .slideshowmake p{
    font-size: 12px;
 }
+img,
+.service-icon,
+.serviceMain{
+    transition: .5s;
+}
+
+img:hover{
+    transform: scale(102%);
+}
+.serviceMain:hover{
+    cursor: pointer;
+    background-color: var(--text-primary);
+
+}
+.serviceMain:hover .service-icon
+{
+    transform: scale(104%) translateY(-10px);
+    
+}
+
+#goTopButton{
+    padding: 10px;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color:none;
+    color: var(--text-primary);
+    font-size: 30px;
+    font-weight: 700;
+    border:none;
+    cursor: pointer;
+    display: none;
+}

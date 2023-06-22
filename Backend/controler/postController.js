@@ -23,12 +23,12 @@ const deletePosts = (req,res)=>{
     db.query(q,postId,(error,data)=>{
         if(error){
             const q = "DELETE FROM comments WHERE post_comment = ?"
-        db.query(q,postId,(error,data)=>{
-            if(error)   return res.status(500).json(error)
-            return res.status(200).json({message:" Your Post Deleted Successfuly!"})
-        })
+            db.query(q,postId,(error,data)=>{
+                if(error)   return res.status(500).json(error)
+                return res.status(200).json({message:"Your Post Deleted Successfuly!"})
+            })
         }
-        return res.status(200).json({message:" Your Post Deleted Successfuly!"})
+        return res.status(200).json({message:"Your Post Deleted Successfuly!"})
     })
 }
 //===========Create A Post in Page==========
@@ -39,7 +39,6 @@ const addPost = (req,res)=>{
     db.query(q,[value],(error,data)=>{
         if(error) return res.status(500).json(error)
         return res.status(200).json({success:" Your Post Successfuly Uploaded..."})
-
     })
 }
 // ============update post by id============

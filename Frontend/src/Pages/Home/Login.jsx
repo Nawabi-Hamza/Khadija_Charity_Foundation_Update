@@ -2,7 +2,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useState,useContext } from "react"
 import axios from "axios"
-import { AuthContext } from "../context/AuthContext"
+import { AuthContext, preApi } from "../context/AuthContext"
 // import { apiDomain } from "../../App"
 
 export default function LoginPage(){
@@ -17,6 +17,7 @@ export default function LoginPage(){
 }
 
 function Login(){
+    // console.log(preApi)
     const navigate = useNavigate()
     const { login } = useContext(AuthContext)
     const [ inputs,setInputs ] = useState({
@@ -32,7 +33,7 @@ function Login(){
         e.preventDefault()
             try{
                 // alert("welcome")
-                await axios.post("https://myapi.khadijacharityfoundation.com/auth/login",inputs)
+                await axios.post(`${preApi}/auth/login`,inputs)
                 await login(inputs)
                 alert(`Welcome ${inputs.user_name}`)
                 navigate('/')
@@ -41,7 +42,7 @@ function Login(){
                 // console.log(error) 
                 // alert("Please Check Your Username Or Password")
                 document.getElementById("show").innerHTML=error.response.data.error;
-                document.getElementById("show").style="display:block;font-size:15px;";
+                document.getElementById("show").style="display:block;font-size:15px;max-width:500px;position:fixed;left:0;top:60;";
                 setTimeout(()=>{
                 document.getElementById("show").style="display:none;";
                 },4000)

@@ -1,11 +1,10 @@
 import axios from "axios"
 import { useContext,useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { AuthContext } from "../context/AuthContext"
+import { AuthContext, preApi } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import NotPage from "../PageNotFound"
 import NavbarDashboard from "./Navbar"
-// import { apiDomain } from "../../App"
 
 
 
@@ -28,6 +27,11 @@ export default function UpdateSingleUser(){
 }
 
 function Update(){
+    // console.log(preApi)
+    const { currentUser } = useContext(AuthContext)
+     const config = {
+        headers:{Authorization:`Bearer ${currentUser.token}`}
+     }
     const navigate = useNavigate()
     var state = useLocation().state
     // =============Edite Users=============
@@ -42,11 +46,11 @@ function Update(){
                 alert("Please Fill All Field")
             }else{
                 try{
-                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/${state.user_id}`,{user_name:name,
+                    await axios.post(`${preApi}/auth/users/edite/${state.user_id}`,{user_name:name,
                     user_email: email,
                     user_password: password,
                     user_type:type,
-                    })
+                    },config)
                     navigate("/dashboard/users")
                 }catch(error){
                     console.log(error)
@@ -54,7 +58,7 @@ function Update(){
             }
         }
     return(<>
-    <div className="contianer-fluid">
+    <div className="contianer-fluid singleUserFade">
         <div className="container-md">
             <div className="row">
                 <div className="col-md-4"></div>

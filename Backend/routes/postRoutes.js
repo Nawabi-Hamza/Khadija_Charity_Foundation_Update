@@ -3,6 +3,7 @@ const routes = express.Router()
 const { 
         getPost3,getPosts,addPost,deletePosts,
         AddComment,ShowCommentByPostId,showTotoalOfComment,deleteComment } = require("../controler/postController")
+const { checkToken } = require("../Jsonwebtoken")
 // routes.get("/",(req,res)=>{
 //     res.send("welcome to test")
 // })
@@ -10,8 +11,8 @@ const {
 routes.get("/",getPosts)
 routes.get("/:id",getPosts)
 routes.get("/single/three",getPost3)
-routes.post("/",addPost)
-routes.post("/delete/:id",deletePosts)
+routes.post("/",checkToken,addPost)
+routes.post("/delete/:id",checkToken,deletePosts)
 
 
 // Comment Methode

@@ -33,20 +33,40 @@ const register = (req,res)=>{
 const login = (req,res)=>{
     const q = "SELECT * FROM users WHERE user_name = ? "
     db.query(q,[req.body.user_name],(error,data)=>{
+
         if(error) return res.status(500).json(error)
         if(data.length === 0) return res.status(404).json({error:"User Is Not Registered Please first Register..."})
-
+        // console.log(data[0].user_password)
         const isPasswordCorrect = bcrypt.compareSync(req.body.user_password,data[0].user_password)
         // console.log(isPasswordCorrect)
         if(!isPasswordCorrect) return res.status(400).json({error:"please type correct password"})
-
-        const token = jwt.sign({id:data[0].id},"jwtkey123")
-        // to hide password just show user name and email
-        const {user_password , ...other} = data[0]
-        res.cookie("access-token",token,{
-            httpOnly:true
-        // }).status(200).json(data[0])
-         }).status(200).json(other)
+        //  console.log(data[0].user_type)
+        if(data[0].user_type=="Super Admin"||data[0].user_type=="Admin"){
+            // console.log("Runnning")
+            // console.log(data[0].user_password)
+            const {user_password,...other} = data[0]
+            let result = (data[0].user_password==undefined)
+            // console.log(result)
+            // // Generate a JWT using the user ID as the payload
+            const token = jwt.sign({ result: data }, process.env.JSONTOKEN, { expiresIn: '5d' });
+            // // Return th    e JWT to the client
+            // console.log(token)
+            return res.json({ ...other,token: token });
+        }
+        else if(data){
+            const {user_password,...other} = data[0]
+            return res.json(other)
+        }
+        else{
+            return res.status(404).json({message:"User Dose Not Exist...."})
+        }
+        // const token = jwt.sign({id:data[0].id},"jwtkey123")
+        // // to hide password just show user name and email
+        // const {user_password , ...other} = data[0]
+        // res.cookie("access-token",token,{
+        //     httpOnly:true
+        // // }).status(200).json(data[0])
+        //  }).status(200).json(other)
     })
 }
 

@@ -24,7 +24,7 @@ const name = req.body.name
 const email = req.body.email
 const message = req.body.message
 if(name && email && message){
-    var emailto = "H.Nawabi007@gmail.com,naimat10nawabi@gmail.com"
+    var emailto = "H.Nawabi007@gmail.com,hamza.nawabi119@gmail.com"
         const mail = {
             from:"KhadijaCharityFoundation@gmail.com",
             to:emailto,

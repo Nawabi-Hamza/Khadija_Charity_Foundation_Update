@@ -11,8 +11,4 @@ function App() {
   );    
 } 
 export default App;  
-
-
-// For API CHANGE THIS ALL API WILL CHANGED
-// export const apiDomain = "http://localhost:3002"                                           
-// export const apiDomain = "https://myapi.khadijacharityfoundation.com"                                           
+                                     

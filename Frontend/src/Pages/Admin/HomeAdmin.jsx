@@ -1,11 +1,9 @@
 
 import axios from "axios"
-import { useEffect, useState } from "react"
-import { useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
+import { useEffect, useState,useContext } from "react"
+import { AuthContext, preApi } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import NavbarDashboard from "./Navbar"
-// import { apiDomain } from "../../App"
 
 
 export default function HomeDashboard(){
@@ -31,6 +29,13 @@ export function UserNotAdmin(){
     )
 }
 function FirstSection(){
+    const { currentUser } = useContext(AuthContext)
+    // console.log(currentUser.token)
+    
+        const useToken = { Authorization:"Bearer " +currentUser.token }
+    
+    
+    // console.log(config)
     const [ file,setFile ] = useState(null)
     const [ title,setTitle ] = useState("")
     const [ description,setDescription ] = useState("")
@@ -38,7 +43,7 @@ function FirstSection(){
         try{
         const formData = new FormData();
         formData.append("image",file)
-        const res = await axios.post("https://myapi.khadijacharityfoundation.com/image/upload",formData)
+        const res = await axios.post(`${preApi}/image/upload`,formData)
         return res.data.secure_url;
         }catch(error){
         console.log(error)
@@ -46,24 +51,28 @@ function FirstSection(){
     }
     // console.log(title+description+file)
     const [ createShow,setCreateShow ] = useState(0)
+    
     const createSlideShow = async(e)=>{
         e.preventDefault()
-        document.getElementById("alertShow").innerHTML = "Please Wait....";
+        document.getElementById("alertShow").innerHTML = `Please Wait <div className="spinner-border spinner-border-sm ms-2" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>`;
         document.getElementById("alertShow").style = "display:block;";
 
        const imgUrl = await upload()
-       console.log(imgUrl)                                      
+        // const input =
+    //    console.log(imgUrl)                                      
         try{
             // alert("Welcome to slide show1")                 
             
-            await axios.post("https://myapi.khadijacharityfoundation.com/slideshow",{
+            await axios.post(`${preApi}/token/slideshow`,{
                 slide_title:title,
                 slide_descrption:description,
                 slide_image:file? imgUrl:"",
-            })
+            },{headers: useToken})
             setCreateShow(createShow + 1)
             // alert("Welcome to slide show")
-        document.getElementById("alertShow").innerHTML = "Slide Show Added Successfully ...";
+        document.getElementById("alertShow").innerHTML = `Slide Show Added Successfully ...`;
         setTimeout(()=>{
             document.getElementById("alertShow").innerHTML = "";
             document.getElementById("alertShow").style = "display:none";
@@ -77,7 +86,7 @@ function FirstSection(){
     const [ show,setShow ] = useState([])
     const fetchSlideShow = async()=>{
         try{
-          const res =  await axios.get("https://myapi.khadijacharityfoundation.com/slideshow")
+          const res =  await axios.get(`${preApi}/token/slideshow`)
           setShow(res.data)
 
         }catch(error){
@@ -99,7 +108,7 @@ function FirstSection(){
     //     }
     // }
     return(<>
-     <div className="slideshowmake">
+     <div className="slideshowmakeFade">
         <div className="container-md">
             <div className="row">
                 <div className="col-md-6">
@@ -115,9 +124,9 @@ function FirstSection(){
                 </div>
                 <div className="col-md-6  mt-md-5 p-3" style={{height:"500px",overflow:"auto"}}>
                     {show.map((items)=>(
-                    <div className="row mt-5">
+                    <div className="row mt-5" key={items.slide_id}>
                         <div className="col-4">
-                            <img src={`${items.slide_image}`} style={{width:"100%",height:"150px",objectFit:"cover"}} alt="" />
+                            <img src={`${items.slide_image}`} style={{width:"100%",height:"150px",objectFit:"cover"}} alt="" loading="lazy"/>
                         </div>
                         <div className="col-7"> 
                             <button className="btn btn-danger form-control" onClick={async(e)=>{
@@ -129,14 +138,19 @@ function FirstSection(){
                                 const lastPart = parts[parts.length - 1].replace('.jpg'||'.png'||".jpeg", '');
                                 // console.log(lastPart)
                                 try{
-                                    document.getElementById("show").innerHTML="Please Wait..."
+                                    document.getElementById("show").innerHTML=`Please Wait <div className="spinner-border spinner-border-sm ms-2" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                  </div>`
                                     document.getElementById("show").style="display:block;"
-                                    const res = await axios.post(`https://myapi.khadijacharityfoundation.com/image/delimage/${lastPart}`)
-                                    console.log(res.status)
+                                    const res = await axios.post(`${preApi}/image/delimage/${lastPart}`)
+                                    // console.log(res.status)
                                     if(res.status===200){
                                         try{
-                                            await axios.post(`https://myapi.khadijacharityfoundation.com/slideshow/delete/${items.slide_id}`)
+                                            // console.log(config)
+                                            const res2 = await axios.post(`${preApi}/token/slideshow/delete/${items.slide_id}`)
                                             // alert("Your Post Deleted Successfuly...")
+                                            console.log(res2)
+
                                             setCreateShow(createShow + 1)
                                             document.getElementById("show").innerHTML="Your Slide Show Deleted Successfuly..."
                                             // document.getElementById("show").style="display:block;"

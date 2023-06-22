@@ -12,7 +12,7 @@ export default function AboutPage(){
 
 function WhoWeAre(){
     return(<>
-    <div className="container about">
+    <div className="container about aboutFade">
         <center>
         <h1 className="my-text display-2 my-5 fw-bold">
             Who We Are ?

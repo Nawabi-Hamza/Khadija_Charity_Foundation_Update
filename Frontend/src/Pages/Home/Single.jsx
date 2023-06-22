@@ -1,6 +1,6 @@
 import { useContext,useState } from "react"
 import { useLocation } from "react-router-dom"
-import { AuthContext } from "../context/AuthContext"
+import { AuthContext, preApi } from "../context/AuthContext"
 import axios from "axios"
 import { useEffect } from "react"
 // import { apiDomain } from "../../App"
@@ -19,11 +19,12 @@ export default function ShowSinglePost(){
 
 
 function SinglePost(){
+    // console.log(preApi)
     const [ count,setCount ] = useState(0)
     const handleDeleteComment = async(idcomment)=>{
         // e.preventDefault()
         try{
-            await axios.post("https://myapi.khadijacharityfoundation.com/posts/comment/delete/"+idcomment)
+            await axios.post(`${preApi}/posts/comment/delete/`+idcomment)
             setCount(count + 1)
         }catch(error){
             console.log(error)
@@ -38,7 +39,7 @@ function SinglePost(){
     useEffect(()=>{
         const takedata =  async()=>{
              try{
-                  const res = await axios.get("https://myapi.khadijacharityfoundation.com/posts/"+postId)
+                  const res = await axios.get(`${preApi}/posts/`+postId)
                   setShow(res.data)
               }catch(error){
                   console.log(error)   
@@ -62,10 +63,10 @@ function SinglePost(){
     // alert(commentTotal)
     const showCommentPost = async()=>{
         try{
-          const res = await axios.get(`https://myapi.khadijacharityfoundation.com/posts/comment/${postId}`)
+          const res = await axios.get(`${preApi}/posts/comment/${postId}`)
             setShowComment(res.data)
           try{
-              const res2 = await axios.get( `https://myapi.khadijacharityfoundation.com/posts/comment/total/${postId}`)
+              const res2 = await axios.get( `${preApi}/posts/comment/total/${postId}`)
               setCommentTotal(res2.data)
             //   setCount(count + 1)
             }catch(error){
@@ -92,7 +93,7 @@ function SinglePost(){
         try{
             // alert("welcome to comment")
             // await axios.post(`https://myapi.khadijacharityfoundation.com/posts/comment`,setdata) 
-            await axios.post("https://myapi.khadijacharityfoundation.com/posts/comment",setdata)
+            await axios.post(`${preApi}/posts/comment`,setdata)
             setCount(count + 1)
             // console.log(res.data)
             document.getElementById("show").style="display:block;";
@@ -108,6 +109,7 @@ function SinglePost(){
         showCommentPost()
     },[count])
     
+    let number = 0
 
     return(<>
     <div className="container-md py-5">
@@ -145,7 +147,7 @@ function SinglePost(){
             :null
             }
             <div className="col-md-6">
-            <div className="p-3"><i className="fa fa-comments"></i> {commentTotal.map((item)=>(<>{item.total}</>))} Comments</div>
+            <div className="p-3"><i className="fa fa-comments"></i> {commentTotal.map((item)=>(<span key={number = number + 1}>{item.total}</span>))} Comments</div>
                 {/* {editeComment? 
                 <>
                 <input  type="text" className="form-control " placeholder="Your Update Comment..."/>
@@ -154,11 +156,11 @@ function SinglePost(){
                 :null} */}
             <div style={{maxHeight:"360px",overflow:"auto"}}>
                 {showComment.map((items)=>(
-                <div className="my-2 bg-white p-3" style={{borderRadius:"12px"}}>
+                <div className="my-2 bg-white p-3" key={items.comment_id} style={{borderRadius:"12px"}}>
                     <div className="d-flex justify-content-between">
                     <h5>
                     {items.user_image?
-                    <img src={items.user_image} style={{height:"55px",width:"55px",objectFit:"cover",borderRadius:"50%"}} alt="" />
+                    <img src={items.user_image} style={{height:"55px",width:"55px",objectFit:"cover",borderRadius:"50%"}} alt="" loading="lazy" />
                     :
                     <i className="fa fa-user" ></i> 
                     }

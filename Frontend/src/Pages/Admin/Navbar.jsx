@@ -26,18 +26,18 @@ export default function NavbarDashboard(){
             <div className="collapse navbar-collapse" id="navbarNavDropdownDemo02" >
               <ul className="navbar-nav w-100" >
                 <li className="nav-item">
-                  <Link className={url===""? "nav-link a1":"nav-link"} aria-current="page" to="/">&lt;| Home</Link>
+                  <Link className={`nav-link ${url==="" && 'a1'}`} aria-current="page" to="/">&lt;| Home</Link>
                 </li>
                 <li className="nav-item">
                   <Link className={`nav-link ${url==="home" && 'a1'}`} aria-current="page" to="/dashboard/home">SlideShow</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={url==="posts"? "nav-link a1":"nav-link"} aria-current="page" to="/dashboard/posts">Posts</Link>
+                  <Link className={`nav-link ${url==="posts"&& 'a1'}`} aria-current="page" to="/dashboard/posts">Posts</Link>
                 </li>
                 {currentUser?
                 currentUser.user_type==="Super Admin"?
                 <li className="nav-item">
-                  <Link className={url==="users"? "nav-link a1":"nav-link"} aria-current="page" to="/dashboard/users">Users</Link>
+                  <Link className={`nav-link ${url==="users" && 'a1'}`} aria-current="page" to="/dashboard/users">Users</Link>
                 </li>:null
 
               :  

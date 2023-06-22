@@ -1,11 +1,12 @@
 import { useContext,useState } from "react"
-import { AuthContext } from "../context/AuthContext"
+import { AuthContext, preApi } from "../context/AuthContext"
 import { useLocation } from "react-router-dom"
 import axios from "axios"
 // import { apiDomain } from "../../App"
 
 
 export default function CommentComponent(){
+    // console.log(preApi)
     const { currentUser } = useContext(AuthContext)
     const [ acomment,setComment ] = useState("")
     const location = useLocation()
@@ -21,7 +22,7 @@ export default function CommentComponent(){
         try{
             // alert("welcome to comment")
             // await axios.post(`https://myapi.khadijacharityfoundation.com/posts/comment`,setdata) 
-            await axios.post("https://myapi.khadijacharityfoundation.com/posts/comment",setdata)
+            await axios.post(`${preApi}/posts/comment`,setdata)
             // console.log(res.data)
             document.getElementById("show").style="display:block;";
             setTimeout(()=>{

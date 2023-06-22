@@ -25,6 +25,7 @@ function Navbar(){
       console.log(error)
     }
   }
+  // console.log()
   return(<>
      {/* <!-- Nav Bar Start --> */}
      <div className="my-primary" style={{position:"sticky",top:"0px",zIndex:"999"}}>
@@ -43,9 +44,12 @@ function Navbar(){
             <div className="collapse navbar-collapse" id="navbarNavDropdownDemo02" >
               <ul className="navbar-nav w-100" >
                 {currentUser?
-              <li className="nav-item">
-                  <Link className={url==="profile"? "nav-link a1":"nav-link"} aria-current="page"  to="/profile">Profile</Link>
-                </li>:null
+                  currentUser.user_type==="Admin" || currentUser.user_type === "Super Admin"?
+                   <li className="nav-item">
+                    <Link className={url==="profile"? "nav-link a1":"nav-link"} aria-current="page"  to="/profile">Profile</Link>
+                  </li>
+                  :null
+                  :null
               }
                 <li className="nav-item">
                   <Link className={url===""? "nav-link a1":"nav-link"} aria-current="page" to="/">Home</Link>
@@ -93,7 +97,7 @@ function Navbar(){
 function Footer(){
   return(<>
   {/* <!-- Footer Start --> */}
-        <div className="footer my-primary pt-md-5">
+        <div className="footer my-primary pt-md-5 footerFade">
             <div className="container p-3">
                 <div className="row">
                     <div className="col-lg-4 col-md-6">

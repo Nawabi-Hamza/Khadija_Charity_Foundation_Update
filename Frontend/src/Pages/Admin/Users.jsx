@@ -1,5 +1,5 @@
 
-import { AuthContext } from "../context/AuthContext"
+import { AuthContext, preApi } from "../context/AuthContext"
 import LoginPage from "../Home/Login"
 import { UserNotAdmin } from "./HomeAdmin"
 import NavbarDashboard from "./Navbar"
@@ -29,12 +29,17 @@ export default function UsersDashboard(){
 
 
 function CreateNewUser(){
+    // console.log(preApi)
+    const { currentUser } = useContext(AuthContext)
+    const config = {
+        headers: { Authorization: `Bearer ${currentUser.token}`}
+    }
     const [ count,setCount ] = useState(0)
     // =============Show Users==============
     const [ user,setUser ] = useState([])
     const fetchData = async()=>{
         try{
-            const res = await axios.get("https://myapi.khadijacharityfoundation.com/auth/users")
+            const res = await axios.get(`${preApi}/auth/users`,config)
             setUser(res.data)
         }catch(error){
             console.log(error)
@@ -47,9 +52,9 @@ function CreateNewUser(){
     const handleAdmin = async(admin)=>{
             try{
                 if(admin.user_type==="User"){
-                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/admin/${admin.user_id}`,{
+                    await axios.post(`${preApi}/auth/users/edite/admin/${admin.user_id}`,{
                     user_type:"Admin"
-                    })
+                    },config)
                     setCount(count + 1)
                     document.getElementById("showDelete").innerHTML= "User Become Admin...";
                     document.getElementById("showDelete").style= "display:block";
@@ -59,9 +64,9 @@ function CreateNewUser(){
                     },3000)
                     // alert("User Become Admin...")
                 }else if(admin.user_type==="Admin"){
-                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/admin/${admin.user_id}`,{
+                    await axios.post(`${preApi}/auth/users/edite/admin/${admin.user_id}`,{
                     user_type:"User"
-                    })
+                    },config)
                     setCount(count + 1)
                     document.getElementById("showDelete").innerHTML= "User Become Standard...";
                     document.getElementById("showDelete").style= "display:block";
@@ -81,7 +86,7 @@ function CreateNewUser(){
     const handleDelete = async(userId)=>{ 
         // alert("Delete User "+userId)
         try{
-            await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/delete/${userId}`)
+            await axios.post(`${preApi}/auth/users/delete/${userId}`,{headers: { Authorization: `Bearer ${currentUser.token}`}})
             // alert("User Deleted Successfuly...")
             setCount(count + 1)
             document.getElementById("showDelete").innerHTML= "User Deleted Successfuly...";
@@ -98,7 +103,7 @@ function CreateNewUser(){
 
     }
     return(<>
-    <div className="container-fluid">
+    <div className="container-fluid showAllUserFade">
     <div className="container-md">
         <div className="row mt-5 table-responsive">
             <span className="alert alert-success" style={{display:"none"}} id="showDelete"></span>
@@ -115,10 +120,10 @@ function CreateNewUser(){
             </thead>
             <tbody>
                 {user.map((items)=>(
-                <tr>
+                <tr key={items.user_id}>
                     <td className="p-3">{items.user_id}</td>
                     <td  style={{width:"100px",height:"40px"}}>{items.user_image==="" ? 
-                        <div className="btn d-flex justify-content-center align-items-center" style={{fontSize:"20px"}}><i class="fa-solid fa-user"></i></div>
+                        <div className="btn d-flex justify-content-center align-items-center" style={{fontSize:"20px"}}><i className="fa-solid fa-user"></i></div>
                         :<img src={items.user_image} style={{width:"100%",height:"40px",objectFit:"cover"}} alt="NotImage" />
                         }</td>
                     <td>{items.user_name}</td>
@@ -127,9 +132,9 @@ function CreateNewUser(){
                     <td >
                         {items.user_type=== "User" || items.user_type === "Admin" ?<>
                         <Link to={`/dashboard/users/${items.user_id}`} state={items}>
-                            <button className=" btn btn-primary" style={{width:"55px"}}><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button className=" btn btn-primary" style={{width:"55px"}}><i className="fa-solid fa-pen-to-square"></i></button>
                         </Link>
-                        <button className=" btn btn-danger" style={{width:"55px"}} onClick={()=>handleDelete(items.user_id)}><i class="fa fa-solid fa-trash-can"></i></button>
+                        <button className=" btn btn-danger" style={{width:"55px"}} onClick={()=>handleDelete(items.user_id)}><i className="fa fa-solid fa-trash-can"></i></button>
                         {items.user_type === "User" ?
                         <button className=" btn btn-dark" style={{width:"110px"}} onClick={(e)=>
                             handleAdmin(items)}>Set Admin</button>

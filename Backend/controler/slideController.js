@@ -23,7 +23,7 @@ const deleteSlideShow = (req,res)=>{
     const q = "DELETE FROM `slideshow` WHERE `slide_id` = ?"
     db.query(q,postId,(error,data)=>{
         if(error)   return res.status(500).json(error)
-        return res.status(200).json({message:" Your Post Deleted Successfuly!"})
+        return res.status(200).json({message:" Your Slideshow Deleted Successfuly!"})
     })
 }
 

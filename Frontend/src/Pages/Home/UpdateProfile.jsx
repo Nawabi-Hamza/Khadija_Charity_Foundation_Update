@@ -2,16 +2,19 @@ import axios from "axios"
 import { useContext } from "react"
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { AuthContext } from "../context/AuthContext"
+import { AuthContext, preApi } from "../context/AuthContext"
 import LoginPage from "./Login"
-// import { apiDomain } from "../../App"
 
 
 
 
 
 export default function UpdateUserProfile(){
+    // console.log(preApi)
     const { currentUser } = useContext(AuthContext)
+    const config = {
+        headers:{ Authorization : `Bearer ${currentUser.token}`}
+    }
     const navigate = useNavigate()
     const state = useLocation().state
     // console.log(state)
@@ -45,13 +48,13 @@ export default function UpdateUserProfile(){
             if(password===password2){
                 // const imgUrl = await upload()
                 try{
-                    await axios.post(`https://myapi.khadijacharityfoundation.com/auth/users/edite/${state.user_id}`,{
+                    await axios.post(`${preApi}/auth/users/edite/${state.user_id}`,{
                         user_name:name,
                         user_email:email,
                         user_password:password,
                         user_type:state.user_type,
                         // user_image:file? imgUrl:""
-                    })
+                    },config)
                     // alert("you can update single user")
                     navigate("/profile")
                 }catch(error){

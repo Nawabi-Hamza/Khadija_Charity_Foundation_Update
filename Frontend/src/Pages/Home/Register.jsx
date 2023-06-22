@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
+import { preApi } from "../context/AuthContext"
 // import { apiDomain } from "../../App"
 
 export default function RegisterPage(){
@@ -17,7 +18,7 @@ export default function RegisterPage(){
 
 function Register(){
     const navigate = useNavigate()
-
+    // console.log(preApi)
     const [ name,setName ] = useState("")
     const [ email,setEmail ] = useState("")
     const [ password1,setPassword1 ] = useState("")
@@ -33,7 +34,7 @@ function Register(){
         // if all input fill and the password be same in inputs then user can register
         else if(password1===password2){
             try{
-                await axios.post("https://myapi.khadijacharityfoundation.com/auth/register",{
+                await axios.post(`${preApi}/auth/register`,{
                     user_name:name,
                     user_email:email,
                     user_type:"User",
@@ -44,7 +45,7 @@ function Register(){
             }catch(error){
                 console.log(error.response.data) 
                 document.getElementById("show").innerHTML=error.response.data.error;
-                document.getElementById("show").style="display:block;font-size:12px;";
+                document.getElementById("show").style="display:block;font-size:15px;max-width:500px;position:fixed;left:0;top:60;";
             }
         }
         // if the user password not be same the user take an alert from browser
