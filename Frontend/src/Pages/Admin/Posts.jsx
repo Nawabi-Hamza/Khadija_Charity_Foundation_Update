@@ -84,6 +84,7 @@ function Show(){
                     setCount(count + 1)
                     show1.innerHTML="Your Post Added Successfuly...";
                     // show1.style="display:block;"
+                    window.location.reload();
                     setTimeout(()=>{
                         setFile(null)
                         setTitle("")
@@ -94,7 +95,6 @@ function Show(){
                     show2.style="display:none;"
                     },3000)
 
-                    window.location.reload();
                 }catch(error){
                     console.log(error)
                 }
