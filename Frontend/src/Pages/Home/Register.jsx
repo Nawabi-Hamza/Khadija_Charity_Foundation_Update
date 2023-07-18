@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { preApi } from "../context/AuthContext"
 // import { apiDomain } from "../../App"
+import ReCAPTCHA from "react-google-recaptcha";
+
+
 
 export default function RegisterPage(){
     return(<>
@@ -23,13 +26,16 @@ function Register(){
     const [ email,setEmail ] = useState("")
     const [ password1,setPassword1 ] = useState("")
     const [ password2,setPassword2 ] = useState("")
+    const [ valid,setValid ] = useState(false)
+
+    const show = document.getElementById("show")
     const handleRegisterUser = async(e)=>{
         e.preventDefault()
         // if one of input be empty the user take an alert from browser
-        if(name ==="" || email ==="" || password1 ==="" || password2 ===""){
+        if(name ==="" || email ==="" || password1 ==="" || password2 ==="" || !valid){
             // alert("")
-            document.getElementById("show").innerHTML="Please Fill All Field .";
-            document.getElementById("show").style="display:block;";
+            show.innerHTML="Please Fill All Field .";
+            show.style="display:block;";
         }
         // if all input fill and the password be same in inputs then user can register
         else if(password1===password2){
@@ -44,17 +50,22 @@ function Register(){
 
             }catch(error){
                 console.log(error.response.data) 
-                document.getElementById("show").innerHTML=error.response.data.error;
-                document.getElementById("show").style="display:block;font-size:15px;max-width:500px;position:fixed;left:0;top:60;";
+                show.innerHTML=error.response.data.error;
+                show.style="display:block;font-size:15px;max-width:500px;position:fixed;left:0;top:60;";
             }
         }
         // if the user password not be same the user take an alert from browser
         else{
             // alert("Please Check Your Password Your Password Must Be Same...!")
-            document.getElementById("show").innerHTML="Please Check Your Password Your Password Must Be Same...!";
-            document.getElementById("show").style="display:block;font-size:12px;";
+            show.innerHTML="Please Check Your Password Your Password Must Be Same...!";
+            show.style="display:block;font-size:12px;";
         }
         
+    }
+
+    function onChange(value) {
+        console.log("Captcha value:", value);
+        setValid(!valid)
     }
     return(<>
     <div className="container-md my-5 register">
@@ -70,7 +81,11 @@ function Register(){
                         <input type="email" className="form-control my-3"   placeholder="Email"onChange={(e)=>setEmail(e.target.value)} />
                         <input type="password" className="form-control"  placeholder="Password"onChange={(e)=>setPassword1(e.target.value)}  />
                         <input type="password" className="form-control my-3"  placeholder="Confirm Password" onChange={(e)=>setPassword2(e.target.value)} />
-                        <button className="btn custom form-control mb-3" onClick={handleRegisterUser}>Register</button>
+                        <ReCAPTCHA
+                            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                            onChange={onChange}
+                        />
+                        <button className="btn custom form-control my-3" onClick={handleRegisterUser} disabled={!valid}>Register</button>
                         <span>
                             <Link to="/login" className="userLink">I have account ? Login</Link>    
                         </span>
